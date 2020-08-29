@@ -1,3 +1,5 @@
+import java.util.stream.Stream;
+
 public class Column {
     String[] array;
     int s;
@@ -23,6 +25,7 @@ public class Column {
     }
 
     public boolean isFull() {
-        return false;
+        Stream<String> str = Stream.of(array);
+        return str.noneMatch(x -> x == " ");
     }
 }
