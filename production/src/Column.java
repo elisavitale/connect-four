@@ -16,10 +16,12 @@ public class Column {
     }
 
     public void insert(String piece) {
-        for (int i = 5; i >= 0; i--) {
-            if (array[i] == " ") {
-                array[i] = piece;
-                break;
+        if (!isFull()) {
+            for (int i = 5; i >= 0; i--) {
+                if (array[i].equals(" ")) {
+                    array[i] = piece;
+                    break;
+                }
             }
         }
     }
@@ -28,4 +30,5 @@ public class Column {
         Stream<String> str = Stream.of(array);
         return str.noneMatch(x -> x == " ");
     }
+
 }
