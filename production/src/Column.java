@@ -12,4 +12,8 @@ public class Column {
         for (int i = 0; i < s; i++)
             array[i] = " ";
     }
+
+    public void insert(String piece) {
+        array[5] = piece;
+    }
 }
