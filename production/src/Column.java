@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.stream.Stream;
 
 public class Column {
@@ -17,18 +18,23 @@ public class Column {
 
     public void insert(String piece) {
         if (!isFull()) {
-            for (int i = 5; i >= 0; i--) {
-                if (array[i].equals(" ")) {
-                    array[i] = piece;
-                    break;
-                }
-            }
+            array[findNextIndex()] = piece;
         }
     }
 
     public boolean isFull() {
         Stream<String> str = Stream.of(array);
-        return str.noneMatch(x -> x == " ");
+        return str.noneMatch(x -> x.equals(" "));
     }
 
+    public int findNextIndex() {
+        int ind = 0;
+        for (int i = 5; i >= 0; i--) {
+            if (array[i].equals(" ")){
+                ind = i;
+                break;
+            }
+        }
+        return ind;
+    }
 }
