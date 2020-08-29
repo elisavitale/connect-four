@@ -14,6 +14,11 @@ public class Column {
     }
 
     public void insert(String piece) {
-        array[5] = piece;
+        for (int i = 5; i >= 0; i--) {
+            if (array[i] == " ") {
+                array[i] = piece;
+                break;
+            }
+        }
     }
 }
