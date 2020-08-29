@@ -21,4 +21,8 @@ public class Column {
             }
         }
     }
+
+    public boolean isFull() {
+        return false;
+    }
 }

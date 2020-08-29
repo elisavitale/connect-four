@@ -17,4 +17,16 @@ public class ColumnTest {
         c.insert("Y");
         assertEquals("Y", c.array[4]);
     }
+
+    @Test
+    void isFullTest() {
+        Column c = new Column(6);
+        c.insert("R");
+        c.insert("Y");
+        c.insert("R");
+        c.insert("Y");
+        c.insert("R");
+        c.insert("Y");
+        assertEquals(true, c.isFull());
+    }
 }
