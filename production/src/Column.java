@@ -24,4 +24,11 @@ public class Column {
     public boolean isFull() {
         return column.size() == s;
     }
+
+    public String getPiece(int index) {
+        if (s - index >= column.size())
+            return " ";
+        else
+            return column.get(s - index);
+    }
 }

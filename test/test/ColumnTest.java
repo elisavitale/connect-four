@@ -35,7 +35,7 @@ public class ColumnTest {
         Column c = new Column(6);
         c.insert("R");
         c.insert("Y");
-        assertEquals("R", c.getPiece(1));
+        assertEquals("R", c.getPiece(6));
     }
 
     @Test
@@ -43,6 +43,6 @@ public class ColumnTest {
         Column c = new Column(6);
         c.insert("R");
         c.insert("Y");
-        assertEquals(" ", c.getPiece(4));
+        assertEquals(" ", c.getPiece(3));
     }
 }
