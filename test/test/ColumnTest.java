@@ -7,7 +7,7 @@ public class ColumnTest {
     void insertTest() {
         Column c = new Column(6);
         c.insert("R");
-        assertEquals("R", c.array[5]);
+        assertEquals("R", c.lastPiece());
     }
 
     @Test
@@ -15,7 +15,7 @@ public class ColumnTest {
         Column c = new Column(6);
         c.insert("R");
         c.insert("Y");
-        assertEquals("Y", c.array[4]);
+        assertEquals("Y", c.lastPiece());
     }
 
     @Test
