@@ -1,8 +1,6 @@
 import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BoardTest {
@@ -12,7 +10,7 @@ public class BoardTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        Board b = new Board();
+        Board b = new Board(6, 7);
         b.printBoard();
 
         String expectedOutput  = "| | | | | | | |\n" +
