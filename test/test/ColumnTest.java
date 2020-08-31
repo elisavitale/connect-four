@@ -29,4 +29,20 @@ public class ColumnTest {
         c.insert("Y");
         assertEquals(true, c.isFull());
     }
+
+    @Test
+    void getPieceTest() {
+        Column c = new Column(6);
+        c.insert("R");
+        c.insert("Y");
+        assertEquals("R", c.getPiece(1));
+    }
+
+    @Test
+    void getPieceTest2() {
+        Column c = new Column(6);
+        c.insert("R");
+        c.insert("Y");
+        assertEquals(" ", c.getPiece(4));
+    }
 }
