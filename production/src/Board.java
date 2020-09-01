@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Board {
     private int numberOfColumns;
     private int numberOfRows;
@@ -28,5 +30,17 @@ public class Board {
 
     public void insertPieceInColumn(String piece, int column) {
         board[column - 1].insert(piece);
+    }
+
+    public ArrayList<String> getRow(int index) {
+        ArrayList<String> row = new ArrayList<>();
+        for (int i = 0; i < numberOfColumns; i++)
+            row.add(board[i].getPiece(index));
+        return row;
+    }
+
+    public boolean emptyRow(int index) {
+        return getRow(index).stream()
+                            .allMatch(x -> x == " ");
     }
 }
