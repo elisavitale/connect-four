@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 public class Column {
     private ArrayList<String> column;
-    private int s;
+    private int size;
 
     Column(int size) {
-        s = size;
+        this.size = size;
         column = new ArrayList<>(size);
     }
 
@@ -22,13 +22,13 @@ public class Column {
     }
 
     public boolean isFull() {
-        return column.size() == s;
+        return column.size() == size;
     }
 
     public String getPiece(int index) {
-        if (s - index >= column.size())
+        if (size - index >= column.size())
             return " ";
         else
-            return column.get(s - index);
+            return column.get(size - index);
     }
 }

@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ColumnTest {
 
@@ -27,7 +28,7 @@ public class ColumnTest {
         c.insert("Y");
         c.insert("R");
         c.insert("Y");
-        assertEquals(true, c.isFull());
+        assertTrue(c.isFull());
     }
 
     @Test
