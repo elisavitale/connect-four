@@ -22,7 +22,11 @@ public class Board {
 
     public void printRow(int i) {
         for (int j = 0; j < numberOfColumns; j++)
-            System.out.print("|" + board[j].getPiece(i));
+            System.out.print("|" + board[j].getPiece(i+1));
         System.out.print("|\n");
+    }
+
+    public void insertPieceInColumn(String piece, int column) {
+        board[column - 1].insert(piece);
     }
 }
