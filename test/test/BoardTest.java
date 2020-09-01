@@ -5,12 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BoardTest {
 
+    Board b = new Board(6, 7);
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+
     @Test
     void printBoardTest() {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        Board b = new Board(6, 7);
         b.printBoard();
 
         String expectedOutput  = "| | | | | | | |\n" +
@@ -24,11 +25,9 @@ public class BoardTest {
     }
 
     @Test
-    void insertPieceInColumnTest() {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    void insertOnePieceTest() {
         System.setOut(new PrintStream(outContent));
 
-        Board b = new Board(6, 7);
         b.insertPieceInColumn("Y", 4);
         b.printBoard();
 
@@ -38,6 +37,29 @@ public class BoardTest {
                 "| | | | | | | |\n" +
                 "| | | | | | | |\n" +
                 "| | | |Y| | | |\n";
+
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    @Test
+    void insertSeveralPiecesTest() {
+        System.setOut(new PrintStream(outContent));
+
+        b.insertPieceInColumn("Y", 4);
+        b.insertPieceInColumn("R", 7);
+        b.insertPieceInColumn("Y", 1);
+        b.insertPieceInColumn("R", 3);
+        b.insertPieceInColumn("Y", 3);
+        b.insertPieceInColumn("R", 4);
+        b.insertPieceInColumn("Y", 4);
+        b.printBoard();
+
+        String expectedOutput  = "| | | | | | | |\n" +
+                "| | | | | | | |\n" +
+                "| | | | | | | |\n" +
+                "| | | |Y| | | |\n" +
+                "| | |Y|R| | | |\n" +
+                "|Y| |R|Y| | |R|\n";
 
         assertEquals(expectedOutput, outContent.toString());
     }
