@@ -18,18 +18,15 @@ public class Board {
     }
 
     public void printBoard() {
-        for (int i = 0; i < numberOfRows; i++)
+        for (int i = 1; i <= numberOfRows; i++)
             printRow(i);
     }
 
-    public void printRow(int i) {
-        for (int j = 0; j < numberOfColumns; j++)
-            System.out.print("|" + board[j].getPiece(i+1));
+    public void printRow(int index) {
+        ArrayList<String> row = getRow(index);
+        System.out.print("|");
+        System.out.print(String.join("|", row));
         System.out.print("|\n");
-    }
-
-    public void insertPieceInColumn(String piece, int column) {
-        board[column - 1].insert(piece);
     }
 
     public ArrayList<String> getRow(int index) {
@@ -41,6 +38,10 @@ public class Board {
 
     public boolean emptyRow(int index) {
         return getRow(index).stream()
-                            .allMatch(x -> x == " ");
+                            .allMatch(x -> x.equals(" "));
+    }
+
+    public void insertPieceInColumn(String piece, int column) {
+        board[column - 1].insert(piece);
     }
 }
