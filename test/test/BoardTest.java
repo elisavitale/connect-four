@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BoardTest {
@@ -62,5 +64,29 @@ public class BoardTest {
                 "|Y| |R|Y| | |R|\n";
 
         assertEquals(expectedOutput, outContent.toString());
+    }
+
+    @Test
+    void getRowTest() {
+        b.insertPieceInColumn("Y", 4);
+        b.insertPieceInColumn("R", 7);
+        b.insertPieceInColumn("Y", 1);
+        b.insertPieceInColumn("R", 3);
+
+        ArrayList<String> row = new ArrayList<>();
+        row.add("Y");
+        row.add(" ");
+        row.add("R");
+        row.add("Y");
+        row.add(" ");
+        row.add(" ");
+        row.add("R");
+
+        assertTrue(row.equals(b.getRow(6)));
+    }
+
+    @Test
+    void emptyRowTest() {
+        assertTrue(b.emptyRow(1));
     }
 }
