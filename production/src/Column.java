@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class Column {
     private ArrayList<String> column;
-    private int size;
+    private int maxSize;
 
     Column(int size) {
-        this.size = size;
-        column = new ArrayList<>(size);
+        this.maxSize = size;
+        column = new ArrayList<>();
     }
 
     public String lastPiece() {
@@ -22,13 +22,17 @@ public class Column {
     }
 
     public boolean isFull() {
-        return column.size() == size;
+        return column.size() == maxSize;
     }
 
-    public String getPiece(int index) {
-        if (size - index >= column.size())
+    public String getPieceAtRow(int index) {
+        if (maxSize - index >= column.size())
             return " ";
         else
-            return column.get(size - index);
+            return column.get(maxSize - index);
+    }
+
+    public int currentSize() {
+        return column.size();
     }
 }
