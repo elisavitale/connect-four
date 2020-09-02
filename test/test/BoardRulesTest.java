@@ -15,7 +15,7 @@ public class BoardRulesTest {
         b.insertPieceInColumn("Y", 3);
         b.insertPieceInColumn("Y", 4);
 
-        assertTrue(rules.connectFourHorizontal());
+        assertTrue(rules.connectFour());
     }
 
     @Test
@@ -25,7 +25,7 @@ public class BoardRulesTest {
         b.insertPieceInColumn("Y", 3);
         b.insertPieceInColumn("Y", 6);
 
-        assertFalse(rules.connectFourHorizontal());
+        assertFalse(rules.connectFour());
     }
 
     @Test
@@ -37,7 +37,7 @@ public class BoardRulesTest {
         b.insertPieceInColumn("Y", 6);
         b.insertPieceInColumn("Y", 7);
 
-        assertTrue(rules.connectFourHorizontal());
+        assertTrue(rules.connectFour());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class BoardRulesTest {
         b.insertPieceInColumn("Y", 2);
         b.insertPieceInColumn("Y", 2);
 
-        assertTrue(rules.connectFourVertical());
+        assertTrue(rules.connectFour());
     }
 
     @Test
@@ -58,6 +58,6 @@ public class BoardRulesTest {
         b.insertPieceInColumn("R", 7);
         b.insertPieceInColumn("Y", 7);
 
-        assertFalse(rules.connectFourVertical());
+        assertFalse(rules.connectFour());
     }
 }

@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class BoardRules {
-    Board board;
+    private Board board;
     private List<String> y = Arrays.asList("Y", "Y", "Y", "Y");
     private List<String> r = Arrays.asList("R", "R", "R", "R");
 
@@ -12,27 +12,22 @@ public class BoardRules {
         this.board = board;
     }
 
-    public boolean connectFourHorizontal() {
-        ArrayList<Boolean> rowValues = new ArrayList<>();
+    public boolean connectFour() {
+        ArrayList<ArrayList<String>> allRowsColumns = getAllRowsColumns();
+        return allRowsColumns.stream()
+                             .anyMatch(x -> containsAlignment(x, y) || containsAlignment(x, r));
+    }
+
+    private ArrayList<ArrayList<String>> getAllRowsColumns() {
+        ArrayList<ArrayList<String>> allRowsColumns = new ArrayList<>();
         for (int i = 1; i <= board.numberOfRows; i++)
-            rowValues.add(checkRow(i));
-        return rowValues.contains(true);
-    }
-
-    public boolean checkRow(int index) {
-        ArrayList<String> row = board.getRow(index);
-        return Collections.indexOfSubList(row, y) != -1 || Collections.indexOfSubList(row, r) != -1;
-    }
-
-    public boolean connectFourVertical() {
-        ArrayList<Boolean> columnValues = new ArrayList<>();
+            allRowsColumns.add(board.getRow(i));
         for (int i = 1; i <= board.numberOfColumns; i++)
-            columnValues.add(checkColumn(i));
-        return columnValues.contains(true);
+            allRowsColumns.add(board.getColumn(i - 1));
+        return allRowsColumns;
     }
 
-    public boolean checkColumn(int index) {
-        ArrayList<String> column = board.getColumn(index - 1);
-        return Collections.indexOfSubList(column, y) != -1 || Collections.indexOfSubList(column, r) != -1;
+    private boolean containsAlignment(ArrayList<String> list, List<String> alignment) {
+        return Collections.indexOfSubList(list, alignment) != -1;
     }
 }
