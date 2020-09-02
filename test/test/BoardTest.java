@@ -106,9 +106,4 @@ public class BoardTest {
 
         assertTrue(row.equals(b.getRow(5)));
     }
-
-    @Test
-    void emptyRowTest() {
-        assertTrue(b.emptyRow(1));
-    }
 }

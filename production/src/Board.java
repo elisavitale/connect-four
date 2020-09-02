@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Board {
-    private int numberOfColumns;
-    private int numberOfRows;
+    int numberOfColumns;
+    int numberOfRows;
     private Column[] board;
 
     Board(int rows, int columns) {
@@ -36,12 +36,14 @@ public class Board {
         return row;
     }
 
-    public boolean emptyRow(int index) {
-        return getRow(index).stream()
-                            .allMatch(x -> x.equals(" "));
-    }
-
     public void insertPieceInColumn(String piece, int column) {
         board[column - 1].insert(piece);
+    }
+
+    public ArrayList<String> getColumn(int index) {
+        ArrayList<String> column = new ArrayList<>();
+        for (int i = 1; i <= numberOfRows; i++)
+            column.add(board[index].getPiece(i));
+        return column;
     }
 }
