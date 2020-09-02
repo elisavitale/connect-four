@@ -1,7 +1,9 @@
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,10 +15,10 @@ public class BoardTest {
     @Test
     void printBoardTest() {
         System.setOut(new PrintStream(outContent));
-
         b.printBoard();
 
-        String expectedOutput  = "| | | | | | | |\n" +
+        String expectedOutput  = " 1 2 3 4 5 6 7 \n"+
+                                 "| | | | | | | |\n" +
                                  "| | | | | | | |\n" +
                                  "| | | | | | | |\n" +
                                  "| | | | | | | |\n" +
@@ -29,24 +31,21 @@ public class BoardTest {
     @Test
     void insertOnePieceTest() {
         System.setOut(new PrintStream(outContent));
-
         b.insertPieceInColumn("Y", 4);
         b.printBoard();
 
-        String expectedOutput  = "| | | | | | | |\n" +
-                "| | | | | | | |\n" +
-                "| | | | | | | |\n" +
-                "| | | | | | | |\n" +
-                "| | | | | | | |\n" +
-                "| | | |Y| | | |\n";
+        String expectedOutput  = " 1 2 3 4 5 6 7 \n" +
+                                 "| | | | | | | |\n" +
+                                 "| | | | | | | |\n" +
+                                 "| | | | | | | |\n" +
+                                 "| | | | | | | |\n" +
+                                 "| | | | | | | |\n" +
+                                 "| | | |Y| | | |\n";
 
         assertEquals(expectedOutput, outContent.toString());
     }
 
-    @Test
-    void insertSeveralPiecesTest() {
-        System.setOut(new PrintStream(outContent));
-
+    void insertPiecesExample() {
         b.insertPieceInColumn("Y", 4);
         b.insertPieceInColumn("R", 7);
         b.insertPieceInColumn("Y", 1);
@@ -54,56 +53,56 @@ public class BoardTest {
         b.insertPieceInColumn("Y", 3);
         b.insertPieceInColumn("R", 4);
         b.insertPieceInColumn("Y", 4);
+        b.insertPieceInColumn("R", 7);
+        b.insertPieceInColumn("Y", 7);
+        b.insertPieceInColumn("R", 6);
+        b.insertPieceInColumn("Y", 6);
+    }
+
+    @Test
+    void insertSeveralPiecesTest() {
+        System.setOut(new PrintStream(outContent));
+        insertPiecesExample();
         b.printBoard();
 
-        String expectedOutput  = "| | | | | | | |\n" +
-                "| | | | | | | |\n" +
-                "| | | | | | | |\n" +
-                "| | | |Y| | | |\n" +
-                "| | |Y|R| | | |\n" +
-                "|Y| |R|Y| | |R|\n";
+        String expectedOutput  = " 1 2 3 4 5 6 7 \n" +
+                                 "| | | | | | | |\n" +
+                                 "| | | | | | | |\n" +
+                                 "| | | | | | | |\n" +
+                                 "| | | |Y| | |Y|\n" +
+                                 "| | |Y|R| |Y|R|\n" +
+                                 "|Y| |R|Y| |R|R|\n";
 
         assertEquals(expectedOutput, outContent.toString());
     }
 
     @Test
     void getRowTest() {
-        b.insertPieceInColumn("Y", 4);
-        b.insertPieceInColumn("R", 7);
-        b.insertPieceInColumn("Y", 1);
-        b.insertPieceInColumn("R", 3);
-
-        ArrayList<String> row = new ArrayList<>();
-        row.add("Y");
-        row.add(" ");
-        row.add("R");
-        row.add("Y");
-        row.add(" ");
-        row.add(" ");
-        row.add("R");
-
-        assertTrue(row.equals(b.getRow(6)));
+        insertPiecesExample();
+        List<String> row = Arrays.asList("Y", " ", "R", "Y", " ", "R", "R");
+        assertEquals(b.getRow(6), row);
     }
 
     @Test
     void getRowTest2() {
-        b.insertPieceInColumn("Y", 4);
-        b.insertPieceInColumn("R", 7);
-        b.insertPieceInColumn("Y", 1);
-        b.insertPieceInColumn("R", 3);
-        b.insertPieceInColumn("Y", 3);
-        b.insertPieceInColumn("R", 4);
-        b.insertPieceInColumn("Y", 4);
+        insertPiecesExample();
+        List<String> row = Arrays.asList(" ", " ", "Y", "R", " ", "Y", "R");
+        assertEquals(b.getRow(5), row);
+    }
 
-        ArrayList<String> row = new ArrayList<>();
-        row.add(" ");
-        row.add(" ");
-        row.add("Y");
-        row.add("R");
-        row.add(" ");
-        row.add(" ");
-        row.add(" ");
+    @Test
+    void getDiagonalTest() {
+        insertPiecesExample();
 
-        assertTrue(row.equals(b.getRow(5)));
+        List<String> diagonal = Arrays.asList(" ", " ", "Y", "Y");
+        assertTrue(diagonal.equals(b.getDiagonal(4)));
+    }
+
+    @Test
+    void getDiagonalTest2() {
+        insertPiecesExample();
+
+        List<String> diagonal = Arrays.asList(" ", " ", " ", " ", "Y", "R");
+        assertTrue(diagonal.equals(b.getDiagonal(7)));
     }
 }
