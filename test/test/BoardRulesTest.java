@@ -39,4 +39,25 @@ public class BoardRulesTest {
 
         assertTrue(rules.connectFourHorizontal());
     }
+
+    @Test
+    void connectFourVerticalTest() {
+        b.insertPieceInColumn("Y", 2);
+        b.insertPieceInColumn("Y", 2);
+        b.insertPieceInColumn("Y", 2);
+        b.insertPieceInColumn("Y", 2);
+
+        assertTrue(rules.connectFourVertical());
+    }
+
+    @Test
+    void connectFourVerticalTest2() {
+        b.insertPieceInColumn("Y", 7);
+        b.insertPieceInColumn("Y", 7);
+        b.insertPieceInColumn("Y", 7);
+        b.insertPieceInColumn("R", 7);
+        b.insertPieceInColumn("Y", 7);
+
+        assertTrue(rules.connectFourVertical());
+    }
 }
