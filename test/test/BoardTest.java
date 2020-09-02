@@ -86,6 +86,28 @@ public class BoardTest {
     }
 
     @Test
+    void getRowTest2() {
+        b.insertPieceInColumn("Y", 4);
+        b.insertPieceInColumn("R", 7);
+        b.insertPieceInColumn("Y", 1);
+        b.insertPieceInColumn("R", 3);
+        b.insertPieceInColumn("Y", 3);
+        b.insertPieceInColumn("R", 4);
+        b.insertPieceInColumn("Y", 4);
+
+        ArrayList<String> row = new ArrayList<>();
+        row.add(" ");
+        row.add(" ");
+        row.add("Y");
+        row.add("R");
+        row.add(" ");
+        row.add(" ");
+        row.add(" ");
+
+        assertTrue(row.equals(b.getRow(5)));
+    }
+
+    @Test
     void emptyRowTest() {
         assertTrue(b.emptyRow(1));
     }
