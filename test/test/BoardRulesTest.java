@@ -58,6 +58,6 @@ public class BoardRulesTest {
         b.insertPieceInColumn("R", 7);
         b.insertPieceInColumn("Y", 7);
 
-        assertTrue(rules.connectFourVertical());
+        assertFalse(rules.connectFourVertical());
     }
 }

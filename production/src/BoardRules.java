@@ -5,6 +5,8 @@ import java.util.List;
 
 public class BoardRules {
     Board board;
+    private List<String> y = Arrays.asList("Y", "Y", "Y", "Y");
+    private List<String> r = Arrays.asList("R", "R", "R", "R");
 
     BoardRules(Board board) {
         this.board = board;
@@ -19,8 +21,18 @@ public class BoardRules {
 
     public boolean checkRow(int index) {
         ArrayList<String> row = board.getRow(index);
-        List<String> y = Arrays.asList("Y", "Y", "Y", "Y");
-        List<String> r = Arrays.asList("R", "R", "R", "R");
         return Collections.indexOfSubList(row, y) != -1 || Collections.indexOfSubList(row, r) != -1;
+    }
+
+    public boolean connectFourVertical() {
+        ArrayList<Boolean> columnValues = new ArrayList<>();
+        for (int i = 1; i <= board.numberOfColumns; i++)
+            columnValues.add(checkColumn(i));
+        return columnValues.contains(true);
+    }
+
+    public boolean checkColumn(int index) {
+        ArrayList<String> column = board.getColumn(index - 1);
+        return Collections.indexOfSubList(column, y) != -1 || Collections.indexOfSubList(column, r) != -1;
     }
 }
