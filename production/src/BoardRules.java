@@ -12,19 +12,18 @@ public class BoardRules {
         this.board = board;
     }
 
-    public boolean connectFour() {
-        ArrayList<ArrayList<String>> allRowsColumns = getAllRowsColumns();
-        return allRowsColumns.stream()
-                             .anyMatch(x -> containsAlignment(x, y) || containsAlignment(x, r));
+    public boolean connectFour(int input) {
+        ArrayList<ArrayList<String>> currentRowColumn = getCurrentRowColumn(input);
+        return currentRowColumn.stream()
+                .anyMatch(x -> containsAlignment(x, y) || containsAlignment(x, r));
     }
 
-    private ArrayList<ArrayList<String>> getAllRowsColumns() {
-        ArrayList<ArrayList<String>> allRowsColumns = new ArrayList<>();
-        for (int i = 1; i <= board.numberOfRows; i++)
-            allRowsColumns.add(board.getRow(i));
-        for (int i = 1; i <= board.numberOfColumns; i++)
-            allRowsColumns.add(board.getColumn(i - 1));
-        return allRowsColumns;
+    private ArrayList<ArrayList<String>> getCurrentRowColumn(int input) {
+        ArrayList<ArrayList<String>> output = new ArrayList<>();
+        output.add(board.getColumn(input - 1));
+        int currentRowIndex = board.numberOfRows - board.columnSizes().get(input - 1) + 1;
+        output.add(board.getRow(currentRowIndex));
+        return output;
     }
 
     private boolean containsAlignment(ArrayList<String> list, List<String> alignment) {
