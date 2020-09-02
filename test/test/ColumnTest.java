@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ColumnTest {
 
@@ -32,11 +31,22 @@ public class ColumnTest {
     }
 
     @Test
+    void isFullTest2() {
+        Column c = new Column(6);
+        c.insert("R");
+        c.insert("Y");
+        c.insert("R");
+        c.insert("Y");
+
+        assertFalse(c.isFull());
+    }
+
+    @Test
     void getPieceTest() {
         Column c = new Column(6);
         c.insert("R");
         c.insert("Y");
-        assertEquals("R", c.getPiece(6));
+        assertEquals("R", c.getPieceAtRow(6));
     }
 
     @Test
@@ -44,6 +54,6 @@ public class ColumnTest {
         Column c = new Column(6);
         c.insert("R");
         c.insert("Y");
-        assertEquals(" ", c.getPiece(3));
+        assertEquals(" ", c.getPieceAtRow(3));
     }
 }
