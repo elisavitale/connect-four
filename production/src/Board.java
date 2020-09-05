@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Board {
     int numberOfColumns;
@@ -30,40 +33,41 @@ public class Board {
 
     public ArrayList<String> getRow(int index) {
         ArrayList<String> row = new ArrayList<>();
-        for (int i = 0; i < numberOfColumns; i++)
-            row.add(board[i].getPieceAtRow(index));
+        Arrays.stream(board)
+              .map(column -> column.getPieceAtRow(index))
+              .forEach(row::add);
         return row;
     }
 
     public ArrayList<String> getColumn(int index) {
-        ArrayList<String> column = new ArrayList<>();
-        for (int i = 1; i <= numberOfRows; i++)
-            column.add(board[index].getPieceAtRow(i));
-        return column;
+        return board[index].getColumn();
     }
 
-    public ArrayList<String> getDiagonal(int currentRow, int currentColumn) {
-        ArrayList<String> diagonal = new ArrayList<>();
-        while (currentRow > 1 && currentColumn > 0) {
-            currentRow -= 1;
-            currentColumn -= 1;
+    public List<String> getDiagonal(int currentRow, int currentColumn) {
+        ArrayList<int[]> positions = diagonalPositions(currentRow, currentColumn);
+        return positions.stream()
+                        .map(x -> board[x[1]].getPieceAtRow(x[0]))
+                        .collect(Collectors.toList());
+    }
+
+    private ArrayList<int[]> diagonalPositions(int row, int column) {
+        while (row > 1 && column > 0) {
+            row--;
+            column--;
         }
-        while (currentRow <= 6 && currentColumn <= 6) {
-            diagonal.add(board[currentColumn].getPieceAtRow(currentRow));
-            currentColumn += 1;
-            currentRow += 1;
-        }
-        return diagonal;
+        ArrayList<int[]> positions = new ArrayList<>();
+        while (row <= 6 && column <= 6)
+            positions.add(new int[] {row++, column++});
+        return positions;
     }
 
     public void insertPieceInColumn(String piece, int column) {
         board[column - 1].insert(piece);
     }
 
-    public ArrayList<Integer> columnSizes() {
-        ArrayList<Integer> columnSizes = new ArrayList<Integer>();
-        for (int i = 0; i < numberOfColumns; i++)
-            columnSizes.add(board[i].currentSize());
-        return columnSizes;
+    public int[] currentColumnSizes() {
+        return Arrays.stream(board)
+                     .mapToInt(Column::currentSize)
+                     .toArray();
     }
 }
