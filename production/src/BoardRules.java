@@ -13,20 +13,20 @@ public class BoardRules {
     }
 
     public boolean connectFour(int input) {
-        ArrayList<ArrayList<String>> currentRowColumn = getCurrentRowColumn(input);
-        return currentRowColumn.stream()
-                .anyMatch(x -> containsAlignment(x, y) || containsAlignment(x, r));
+        ArrayList<List<String>> rowColDiag = getRowColDiag(input);
+        return rowColDiag.stream()
+                         .anyMatch(x -> containsAlignment(x, y) || containsAlignment(x, r));
     }
 
-    private ArrayList<ArrayList<String>> getCurrentRowColumn(int input) {
-        ArrayList<ArrayList<String>> output = new ArrayList<>();
-        output.add(board.getColumn(input - 1));
-        int currentRowIndex = board.numberOfRows - board.columnSizes().get(input - 1) + 1;
-        output.add(board.getRow(currentRowIndex));
+    private ArrayList<List<String>> getRowColDiag(int columnIndex) {
+        int rowIndex = board.numberOfRows - board.currentColumnSizes()[columnIndex - 1] + 1;
+        ArrayList<List<String>> output = new ArrayList<>();
+        output.add(board.getColumn(columnIndex - 1));
+        output.add(board.getRow(rowIndex));
+        output.add(board.getDiagonal(rowIndex, columnIndex - 1));
         return output;
     }
 
-    private boolean containsAlignment(ArrayList<String> list, List<String> alignment) {
+    private boolean containsAlignment(List<String> list, List<String> alignment) {
         return Collections.indexOfSubList(list, alignment) != -1;
-    }
-}
+    }}
