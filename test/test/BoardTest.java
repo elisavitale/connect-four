@@ -95,7 +95,7 @@ public class BoardTest {
         insertPiecesExample();
 
         List<String> diagonal = Arrays.asList(" ", " ", "Y", "Y");
-        assertTrue(diagonal.equals(b.getDiagonal(4)));
+        assertTrue(diagonal.equals(b.getDiagonal(5, 2)));
     }
 
     @Test
@@ -103,6 +103,6 @@ public class BoardTest {
         insertPiecesExample();
 
         List<String> diagonal = Arrays.asList(" ", " ", " ", " ", "Y", "R");
-        assertTrue(diagonal.equals(b.getDiagonal(7)));
+        assertTrue(diagonal.equals(b.getDiagonal(6, 6)));
     }
 }
