@@ -43,8 +43,12 @@ public class Board {
         return board[index].getColumn();
     }
 
-    public List<String> getDiagonal(int currentRow, int currentColumn) {
-        ArrayList<int[]> positions = diagonalPositions(currentRow, currentColumn);
+    public List<String> getDiagonal(int currentRow, int currentColumn, boolean antiDiagonal) {
+        ArrayList<int[]> positions;
+        if (antiDiagonal)
+            positions = antiDiagonalPositions(currentRow, currentColumn);
+        else
+            positions = diagonalPositions(currentRow, currentColumn);
         return positions.stream()
                         .map(x -> board[x[1]].getPieceAtRow(x[0]))
                         .collect(Collectors.toList());
@@ -58,6 +62,17 @@ public class Board {
         ArrayList<int[]> positions = new ArrayList<>();
         while (row <= 6 && column <= 6)
             positions.add(new int[] {row++, column++});
+        return positions;
+    }
+
+    private ArrayList<int[]> antiDiagonalPositions(int row, int column) {
+        while (row < 6 && column > 0) {
+            row++;
+            column--;
+        }
+        ArrayList<int[]> positions = new ArrayList<>();
+        while (row >= 1 && column <= 6)
+            positions.add(new int[] {row--, column++});
         return positions;
     }
 

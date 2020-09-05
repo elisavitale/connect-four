@@ -95,7 +95,7 @@ public class BoardTest {
         insertPiecesExample();
 
         List<String> diagonal = Arrays.asList(" ", " ", "Y", "Y");
-        assertEquals(b.getDiagonal(5, 2), diagonal);
+        assertEquals(b.getDiagonal(5, 2, false), diagonal);
     }
 
     @Test
@@ -103,6 +103,14 @@ public class BoardTest {
         insertPiecesExample();
 
         List<String> diagonal = Arrays.asList(" ", " ", " ", " ", "Y", "R");
-        assertEquals(b.getDiagonal(6, 6), diagonal);
+        assertEquals(diagonal, b.getDiagonal(6, 6, false));
+    }
+
+    @Test
+    void getAntiDiagonalTest() {
+        insertPiecesExample();
+
+        List<String> diagonal = Arrays.asList(" ", "Y", "Y", " ", " ", " ");
+        assertEquals(diagonal, b.getDiagonal(5, 2, true));
     }
 }

@@ -19,14 +19,17 @@ public class BoardRules {
     }
 
     private ArrayList<List<String>> getRowColDiag(int columnIndex) {
-        int rowIndex = board.numberOfRows - board.currentColumnSizes()[columnIndex - 1] + 1;
+        columnIndex--;
+        int rowIndex = board.numberOfRows - board.currentColumnSizes()[columnIndex] + 1;
         ArrayList<List<String>> output = new ArrayList<>();
-        output.add(board.getColumn(columnIndex - 1));
+        output.add(board.getColumn(columnIndex));
         output.add(board.getRow(rowIndex));
-        output.add(board.getDiagonal(rowIndex, columnIndex - 1));
+        output.add(board.getDiagonal(rowIndex, columnIndex, false));
+        output.add(board.getDiagonal(rowIndex, columnIndex, true));
         return output;
     }
 
     private boolean containsAlignment(List<String> list, List<String> alignment) {
         return Collections.indexOfSubList(list, alignment) != -1;
-    }}
+    }
+}
