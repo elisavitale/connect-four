@@ -27,11 +27,11 @@ public class Board {
     }
 
     public void printRow(int index) {
-        ArrayList<String> row = getRow(index);
+        List<String> row = getRow(index);
         System.out.print("|" + String.join("|", row) + "|\n");
     }
 
-    public ArrayList<String> getRow(int index) {
+    public List<String> getRow(int index) {
         ArrayList<String> row = new ArrayList<>();
         Arrays.stream(board)
               .map(column -> column.getPieceAtRow(index))
@@ -39,7 +39,7 @@ public class Board {
         return row;
     }
 
-    public ArrayList<String> getColumn(int index) {
+    public List<String> getColumn(int index) {
         return board[index].getColumn();
     }
 

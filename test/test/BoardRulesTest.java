@@ -81,6 +81,4 @@ public class BoardRulesTest {
 
         assertTrue(rules.connectFour(3));
     }
-
-
 }
