@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Board {
     int numberOfColumns;
@@ -43,13 +42,16 @@ public class Board {
         return column;
     }
 
-    public ArrayList<String> getDiagonal(int index) {
+    public ArrayList<String> getDiagonal(int currentRow, int currentColumn) {
         ArrayList<String> diagonal = new ArrayList<>();
-        int step = 6 - index;
-        for (int i = 0; i < numberOfColumns; i++) {
-            if (i + step == numberOfRows)
-                break;
-            diagonal.add(board[i].getPieceAtRow(i + step));
+        while (currentRow > 1 && currentColumn > 0) {
+            currentRow -= 1;
+            currentColumn -= 1;
+        }
+        while (currentRow <= 6 && currentColumn <= 6) {
+            diagonal.add(board[currentColumn].getPieceAtRow(currentRow));
+            currentColumn += 1;
+            currentRow += 1;
         }
         return diagonal;
     }
