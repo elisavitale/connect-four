@@ -81,4 +81,21 @@ public class BoardRulesTest {
 
         assertTrue(rules.connectFour(3));
     }
+
+    @Test
+    void connectFourAntiDiagonalTest() {
+        b.insertPieceInColumn("Y", 1);
+        b.insertPieceInColumn("R", 2);
+        b.insertPieceInColumn("Y", 2);
+        b.insertPieceInColumn("R", 2);
+        b.insertPieceInColumn("Y", 3);
+        b.insertPieceInColumn("R", 3);
+        b.insertPieceInColumn("Y", 3);
+        b.insertPieceInColumn("R", 4);
+        b.insertPieceInColumn("Y", 4);
+        b.insertPieceInColumn("R", 4);
+        b.insertPieceInColumn("Y", 4);
+
+        assertTrue(rules.connectFour(4));
+    }
 }
