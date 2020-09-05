@@ -5,15 +5,12 @@ public class Column {
     private int maxSize;
 
     Column(int size) {
-        this.maxSize = size;
+        maxSize = size;
         column = new ArrayList<>();
     }
 
-    public String lastPiece() {
-        if (column.size() == 0)
-            return " ";
-        else
-            return column.get(column.size() - 1);
+    public ArrayList<String> getColumn() {
+        return column;
     }
 
     public void insert(String piece) {
@@ -22,17 +19,24 @@ public class Column {
     }
 
     public boolean isFull() {
-        return column.size() == maxSize;
-    }
-
-    public String getPieceAtRow(int index) {
-        if (maxSize - index >= column.size())
-            return " ";
-        else
-            return column.get(maxSize - index);
+        return currentSize() == maxSize;
     }
 
     public int currentSize() {
         return column.size();
+    }
+
+    public String lastPiece() {
+        if (currentSize() == 0)
+            return " ";
+        else
+            return column.get(currentSize() - 1);
+    }
+
+    public String getPieceAtRow(int index) {
+        if (maxSize - index >= currentSize())
+            return " ";
+        else
+            return column.get(maxSize - index);
     }
 }
