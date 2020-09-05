@@ -15,7 +15,7 @@ public class BoardRulesTest {
         b.insertPieceInColumn("Y", 3);
         b.insertPieceInColumn("Y", 4);
 
-        assertTrue(rules.connectFour());
+        assertTrue(rules.connectFour(4));
     }
 
     @Test
@@ -25,7 +25,7 @@ public class BoardRulesTest {
         b.insertPieceInColumn("Y", 3);
         b.insertPieceInColumn("Y", 6);
 
-        assertFalse(rules.connectFour());
+        assertFalse(rules.connectFour(3));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class BoardRulesTest {
         b.insertPieceInColumn("Y", 6);
         b.insertPieceInColumn("Y", 7);
 
-        assertTrue(rules.connectFour());
+        assertTrue(rules.connectFour(5));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class BoardRulesTest {
         b.insertPieceInColumn("Y", 2);
         b.insertPieceInColumn("Y", 2);
 
-        assertTrue(rules.connectFour());
+        assertTrue(rules.connectFour(2));
     }
 
     @Test
@@ -58,6 +58,29 @@ public class BoardRulesTest {
         b.insertPieceInColumn("R", 7);
         b.insertPieceInColumn("Y", 7);
 
-        assertFalse(rules.connectFour());
+        assertFalse(rules.connectFour(7));
     }
+
+    @Test
+    void connectFourDiagonalTest() {
+        b.insertPieceInColumn("Y", 1);
+        b.insertPieceInColumn("R", 1);
+        b.insertPieceInColumn("Y", 1);
+        b.insertPieceInColumn("R", 1);
+        b.insertPieceInColumn("Y", 1);
+        b.insertPieceInColumn("R", 2);
+        b.insertPieceInColumn("Y", 2);
+        b.insertPieceInColumn("R", 2);
+        b.insertPieceInColumn("Y", 2);
+        b.insertPieceInColumn("R", 3);
+        b.insertPieceInColumn("Y", 3);
+        b.insertPieceInColumn("R", 4);
+        b.insertPieceInColumn("Y", 4);
+        b.insertPieceInColumn("R", 5);
+        b.insertPieceInColumn("Y", 3);
+
+        assertTrue(rules.connectFour(3));
+    }
+
+
 }
