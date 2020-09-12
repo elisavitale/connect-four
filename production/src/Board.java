@@ -85,4 +85,9 @@ public class Board {
                      .mapToInt(Column::currentSize)
                      .toArray();
     }
+
+    public boolean isFull() {
+        return Arrays.stream(board)
+                     .allMatch(Column::isFull);
+    }
 }
