@@ -35,6 +35,16 @@ public class PlayerTest {
 
     @Test
     public void chooseColumn() {
+        String testInput = "3";
+        setInputStream(testInput);
+        Player player = new Player(board, "R");
+        int column = player.chooseColumn();
+
+        assertEquals(3, column);
+    }
+
+    @Test
+    public void chooseColumn2() {
         String testInput = "WrongInput"
                          + "\n1234567890"
                          + "\n6";
