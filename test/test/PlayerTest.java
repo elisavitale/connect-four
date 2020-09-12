@@ -7,11 +7,15 @@ public class PlayerTest {
 
     Board board = new Board(6, 7);
 
+    public void setInputStream(String testInput) {
+        InputStream inputStream = new ByteArrayInputStream(testInput.getBytes());
+        System.setIn(inputStream);
+    }
+
     @Test
     public void chooseColorTest() {
         String testInput = "Y";
-        InputStream in = new ByteArrayInputStream(testInput.getBytes());
-        System.setIn(in);
+        setInputStream(testInput);
         Player player = new Player(board);
 
         assertEquals("Y", player.color);
@@ -20,11 +24,10 @@ public class PlayerTest {
     @Test
     public void chooseColorTest2() {
         String testInput = "WrongInput"
-                        + "\n1234567890"
-                        + "\nInput with spaces"
-                        + "\nR";
-        InputStream input = new ByteArrayInputStream(testInput.getBytes());
-        System.setIn(input);
+                         + "\n1234567890"
+                         + "\nInput with spaces"
+                         + "\nR";
+        setInputStream(testInput);
         Player player = new Player(board);
 
         assertEquals("R", player.color);
@@ -33,10 +36,9 @@ public class PlayerTest {
     @Test
     public void chooseColumn() {
         String testInput = "WrongInput"
-                        + "\n1234567890"
-                        + "\n6";
-        InputStream inputStream = new ByteArrayInputStream(testInput.getBytes());
-        System.setIn(inputStream);
+                         + "\n1234567890"
+                         + "\n6";
+        setInputStream(testInput);
         Player player = new Player(board, "R");
         int column = player.chooseColumn();
 
