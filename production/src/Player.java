@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Player {
     String color;
+    private Board board;
     private Scanner input = new Scanner(System.in);
-    Board board;
 
     Player(Board board) {
         this.board = board;
