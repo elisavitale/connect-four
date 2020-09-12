@@ -4,12 +4,13 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class BoardTest {
 
     Board b = new Board(6, 7);
+
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @Test
@@ -112,5 +113,11 @@ public class BoardTest {
 
         List<String> diagonal = Arrays.asList(" ", "Y", "Y", " ", " ", " ");
         assertEquals(diagonal, b.getDiagonal(5, 2, true));
+    }
+
+    @Test
+    void isFullTest() {
+        insertPiecesExample();
+        assertFalse(b.isFull());
     }
 }
