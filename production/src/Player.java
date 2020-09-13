@@ -39,7 +39,12 @@ public class Player {
     }
 
     private boolean columnIsAcceptable(int column) {
-        return column >= 1 && column <= board.numberOfColumns;
+        return column >= 1 && column <= board.numberOfColumns && !columnIsFull(column);
+    }
+
+    private boolean columnIsFull(int column) {
+        column--;
+        return board.sizeOfColumn(column) == 6;
     }
 
     private int handleColumnInput(int column) {
