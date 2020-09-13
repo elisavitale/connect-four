@@ -40,50 +40,52 @@ public class Board {
     }
 
     public List<String> getColumn(int index) {
+        index--;
         return board[index].getColumn();
     }
 
     public List<String> getDiagonal(int currentRow, int currentColumn, boolean antiDiagonal) {
-        ArrayList<int[]> positions;
-        if (antiDiagonal)
-            positions = antiDiagonalPositions(currentRow, currentColumn);
-        else
-            positions = diagonalPositions(currentRow, currentColumn);
+        currentColumn--;
+        int[] startingPosition = getStartingPosition(currentRow, currentColumn, antiDiagonal);
+        ArrayList<int[]> positions = getDiagonalPositions(startingPosition, antiDiagonal);
         return positions.stream()
-                        .map(x -> board[x[1]].getPieceAtRow(x[0]))
+                        .map(x -> board[x[0]].getPieceAtRow(x[1]))
                         .collect(Collectors.toList());
     }
 
-    private ArrayList<int[]> diagonalPositions(int row, int column) {
-        while (row > 1 && column > 0) {
-            row--;
-            column--;
-        }
-        ArrayList<int[]> positions = new ArrayList<>();
-        while (row <= 6 && column <= 6)
-            positions.add(new int[] {row++, column++});
-        return positions;
+    private int[] getStartingPosition(int row, int column, boolean antiDiagonal) {
+        if (antiDiagonal)
+            while (row < numberOfRows && column > 0) {
+                row++;
+                column--;
+            }
+        else
+            while (row > 1 && column > 0) {
+                row--;
+                column--;
+            }
+        return new int[] {column, row};
     }
 
-    private ArrayList<int[]> antiDiagonalPositions(int row, int column) {
-        while (row < 6 && column > 0) {
-            row++;
-            column--;
-        }
+    private ArrayList<int[]> getDiagonalPositions(int[] diagonalStart, boolean antiDiagonal) {
+        int column = diagonalStart[0];
+        int row = diagonalStart[1];
         ArrayList<int[]> positions = new ArrayList<>();
-        while (row >= 1 && column <= 6)
-            positions.add(new int[] {row--, column++});
+        while (row >= 1 && row <= numberOfRows && column < numberOfColumns) {
+            if (antiDiagonal) positions.add(new int[] {column++, row--});
+            else positions.add(new int[] {column++, row++});
+        }
         return positions;
     }
 
     public void insertPieceInColumn(String piece, int column) {
-        board[column - 1].insert(piece);
+        column--;
+        board[column].insert(piece);
     }
 
-    public int[] currentColumnSizes() {
-        return Arrays.stream(board)
-                     .mapToInt(Column::currentSize)
-                     .toArray();
+    public int sizeOfColumn(int index) {
+        index--;
+        return board[index].currentSize();
     }
 
     public boolean isFull() {
