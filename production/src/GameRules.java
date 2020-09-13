@@ -5,28 +5,31 @@ import java.util.List;
 
 public class GameRules {
     private Board board;
-    private List<String> y = Arrays.asList("Y", "Y", "Y", "Y");
-    private List<String> r = Arrays.asList("R", "R", "R", "R");
+    private List<String> fourY = Arrays.asList("Y", "Y", "Y", "Y");
+    private List<String> fourR = Arrays.asList("R", "R", "R", "R");
 
     GameRules(Board board) {
         this.board = board;
     }
 
     public boolean connectFour(int input) {
-        ArrayList<List<String>> rowColDiag = getRowColDiag(input);
+        ArrayList<List<String>> rowColDiag = getCurrentRowColumnDiagonals(input);
         return rowColDiag.stream()
-                         .anyMatch(x -> containsAlignment(x, y) || containsAlignment(x, r));
+                         .anyMatch(x -> containsAlignment(x, fourY) || containsAlignment(x, fourR));
     }
 
-    private ArrayList<List<String>> getRowColDiag(int columnIndex) {
-        columnIndex--;
-        int rowIndex = board.numberOfRows - board.currentColumnSizes()[columnIndex] + 1;
-        ArrayList<List<String>> output = new ArrayList<>();
-        output.add(board.getColumn(columnIndex));
-        output.add(board.getRow(rowIndex));
-        output.add(board.getDiagonal(rowIndex, columnIndex, false));
-        output.add(board.getDiagonal(rowIndex, columnIndex, true));
-        return output;
+    private ArrayList<List<String>> getCurrentRowColumnDiagonals(int columnIndex) {
+        int rowIndex = currentRowIndex(columnIndex);
+        ArrayList<List<String>> rowColDiag = new ArrayList<>();
+        rowColDiag.add(board.getColumn(columnIndex));
+        rowColDiag.add(board.getRow(rowIndex));
+        rowColDiag.add(board.getDiagonal(rowIndex, columnIndex, false));
+        rowColDiag.add(board.getDiagonal(rowIndex, columnIndex, true));
+        return rowColDiag;
+    }
+
+    private int currentRowIndex(int column) {
+        return board.numberOfRows - board.sizeOfColumn(column) + 1;
     }
 
     private boolean containsAlignment(List<String> list, List<String> alignment) {
