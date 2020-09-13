@@ -43,7 +43,6 @@ public class Player {
     }
 
     private boolean columnIsFull(int column) {
-        column--;
         return board.sizeOfColumn(column) == 6;
     }
 
