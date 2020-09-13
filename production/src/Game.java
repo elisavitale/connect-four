@@ -1,9 +1,9 @@
 import java.util.HashMap;
 
 public class Game {
-    Board board;
-    GameRules rules;
-    HashMap<Integer, Player> players = new HashMap<>();
+    private Board board;
+    private GameRules rules;
+    private HashMap<Integer, Player> players = new HashMap<>();
 
     Game(Board board) {
         this.board = board;
@@ -37,7 +37,7 @@ public class Game {
             Player currentPlayer = getPlayer(currentPlayerIndex);
             int column = move(currentPlayer);
             if (winningMove(column)) {
-                gameOverMessage(currentPlayerIndex);
+                winnerMessage(currentPlayerIndex);
                 break;
             }
             currentPlayerIndex = nextPlayer(currentPlayerIndex);
@@ -56,7 +56,7 @@ public class Game {
         return rules.connectFour(column);
     }
 
-    private void gameOverMessage(int current) {
+    private void winnerMessage(int current) {
         System.out.println("Player " + current + " wins the game.");
     }
 
