@@ -3,12 +3,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class BoardRules {
+public class GameRules {
     private Board board;
     private List<String> y = Arrays.asList("Y", "Y", "Y", "Y");
     private List<String> r = Arrays.asList("R", "R", "R", "R");
 
-    BoardRules(Board board) {
+    GameRules(Board board) {
         this.board = board;
     }
 
