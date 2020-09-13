@@ -5,96 +5,96 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GameRulesTest {
 
-    Board b = new Board(6, 7);
-    GameRules rules = new GameRules(b);
+    Board board = new Board(6, 7);
+    GameRules rules = new GameRules(board);
 
     @Test
     void connectFourHorizontalTest() {
-        b.insertPieceInColumn("Y", 1);
-        b.insertPieceInColumn("Y", 2);
-        b.insertPieceInColumn("Y", 3);
-        b.insertPieceInColumn("Y", 4);
+        board.insertPieceInColumn("Y", 1);
+        board.insertPieceInColumn("Y", 2);
+        board.insertPieceInColumn("Y", 3);
+        board.insertPieceInColumn("Y", 4);
 
         assertTrue(rules.connectFour(4));
     }
 
     @Test
     void connectFourHorizontalTest2() {
-        b.insertPieceInColumn("Y", 1);
-        b.insertPieceInColumn("Y", 2);
-        b.insertPieceInColumn("Y", 3);
-        b.insertPieceInColumn("Y", 6);
+        board.insertPieceInColumn("Y", 1);
+        board.insertPieceInColumn("Y", 2);
+        board.insertPieceInColumn("Y", 3);
+        board.insertPieceInColumn("Y", 6);
 
         assertFalse(rules.connectFour(3));
     }
 
     @Test
     void connectFourHorizontalTest3() {
-        b.insertPieceInColumn("Y", 1);
-        b.insertPieceInColumn("R", 2);
-        b.insertPieceInColumn("Y", 4);
-        b.insertPieceInColumn("Y", 5);
-        b.insertPieceInColumn("Y", 6);
-        b.insertPieceInColumn("Y", 7);
+        board.insertPieceInColumn("Y", 1);
+        board.insertPieceInColumn("R", 2);
+        board.insertPieceInColumn("Y", 4);
+        board.insertPieceInColumn("Y", 5);
+        board.insertPieceInColumn("Y", 6);
+        board.insertPieceInColumn("Y", 7);
 
         assertTrue(rules.connectFour(5));
     }
 
     @Test
     void connectFourVerticalTest() {
-        b.insertPieceInColumn("Y", 2);
-        b.insertPieceInColumn("Y", 2);
-        b.insertPieceInColumn("Y", 2);
-        b.insertPieceInColumn("Y", 2);
+        board.insertPieceInColumn("Y", 2);
+        board.insertPieceInColumn("Y", 2);
+        board.insertPieceInColumn("Y", 2);
+        board.insertPieceInColumn("Y", 2);
 
         assertTrue(rules.connectFour(2));
     }
 
     @Test
     void connectFourVerticalTest2() {
-        b.insertPieceInColumn("Y", 7);
-        b.insertPieceInColumn("Y", 7);
-        b.insertPieceInColumn("Y", 7);
-        b.insertPieceInColumn("R", 7);
-        b.insertPieceInColumn("Y", 7);
+        board.insertPieceInColumn("Y", 7);
+        board.insertPieceInColumn("Y", 7);
+        board.insertPieceInColumn("Y", 7);
+        board.insertPieceInColumn("R", 7);
+        board.insertPieceInColumn("Y", 7);
 
         assertFalse(rules.connectFour(7));
     }
 
     @Test
     void connectFourDiagonalTest() {
-        b.insertPieceInColumn("Y", 1);
-        b.insertPieceInColumn("R", 1);
-        b.insertPieceInColumn("Y", 1);
-        b.insertPieceInColumn("R", 1);
-        b.insertPieceInColumn("Y", 1);
-        b.insertPieceInColumn("R", 2);
-        b.insertPieceInColumn("Y", 2);
-        b.insertPieceInColumn("R", 2);
-        b.insertPieceInColumn("Y", 2);
-        b.insertPieceInColumn("R", 3);
-        b.insertPieceInColumn("Y", 3);
-        b.insertPieceInColumn("R", 4);
-        b.insertPieceInColumn("Y", 4);
-        b.insertPieceInColumn("R", 5);
-        b.insertPieceInColumn("Y", 3);
+        board.insertPieceInColumn("Y", 1);
+        board.insertPieceInColumn("R", 1);
+        board.insertPieceInColumn("Y", 1);
+        board.insertPieceInColumn("R", 1);
+        board.insertPieceInColumn("Y", 1);
+        board.insertPieceInColumn("R", 2);
+        board.insertPieceInColumn("Y", 2);
+        board.insertPieceInColumn("R", 2);
+        board.insertPieceInColumn("Y", 2);
+        board.insertPieceInColumn("R", 3);
+        board.insertPieceInColumn("Y", 3);
+        board.insertPieceInColumn("R", 4);
+        board.insertPieceInColumn("Y", 4);
+        board.insertPieceInColumn("R", 5);
+        board.insertPieceInColumn("Y", 3);
 
         assertTrue(rules.connectFour(3));
     }
 
     @Test
     void connectFourAntiDiagonalTest() {
-        b.insertPieceInColumn("Y", 1);
-        b.insertPieceInColumn("R", 2);
-        b.insertPieceInColumn("Y", 2);
-        b.insertPieceInColumn("R", 2);
-        b.insertPieceInColumn("Y", 3);
-        b.insertPieceInColumn("R", 3);
-        b.insertPieceInColumn("Y", 3);
-        b.insertPieceInColumn("R", 4);
-        b.insertPieceInColumn("Y", 4);
-        b.insertPieceInColumn("R", 4);
-        b.insertPieceInColumn("Y", 4);
+        board.insertPieceInColumn("Y", 1);
+        board.insertPieceInColumn("R", 2);
+        board.insertPieceInColumn("Y", 2);
+        board.insertPieceInColumn("R", 2);
+        board.insertPieceInColumn("Y", 3);
+        board.insertPieceInColumn("R", 3);
+        board.insertPieceInColumn("Y", 3);
+        board.insertPieceInColumn("R", 4);
+        board.insertPieceInColumn("Y", 4);
+        board.insertPieceInColumn("R", 4);
+        board.insertPieceInColumn("Y", 4);
 
         assertTrue(rules.connectFour(4));
     }

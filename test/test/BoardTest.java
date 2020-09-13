@@ -9,14 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class BoardTest {
 
-    Board b = new Board(6, 7);
+    Board board = new Board(6, 7);
 
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @Test
     void printBoardTest() {
         System.setOut(new PrintStream(outContent));
-        b.printBoard();
+        board.printBoard();
 
         String expectedOutput  = " 1 2 3 4 5 6 7 \n"+
                                  "| | | | | | | |\n" +
@@ -32,8 +32,8 @@ public class BoardTest {
     @Test
     void insertOnePieceTest() {
         System.setOut(new PrintStream(outContent));
-        b.insertPieceInColumn("Y", 4);
-        b.printBoard();
+        board.insertPieceInColumn("Y", 4);
+        board.printBoard();
 
         String expectedOutput  = " 1 2 3 4 5 6 7 \n" +
                                  "| | | | | | | |\n" +
@@ -47,24 +47,24 @@ public class BoardTest {
     }
 
     void insertPiecesExample() {
-        b.insertPieceInColumn("Y", 4);
-        b.insertPieceInColumn("R", 7);
-        b.insertPieceInColumn("Y", 1);
-        b.insertPieceInColumn("R", 3);
-        b.insertPieceInColumn("Y", 3);
-        b.insertPieceInColumn("R", 4);
-        b.insertPieceInColumn("Y", 4);
-        b.insertPieceInColumn("R", 7);
-        b.insertPieceInColumn("Y", 7);
-        b.insertPieceInColumn("R", 6);
-        b.insertPieceInColumn("Y", 6);
+        board.insertPieceInColumn("Y", 4);
+        board.insertPieceInColumn("R", 7);
+        board.insertPieceInColumn("Y", 1);
+        board.insertPieceInColumn("R", 3);
+        board.insertPieceInColumn("Y", 3);
+        board.insertPieceInColumn("R", 4);
+        board.insertPieceInColumn("Y", 4);
+        board.insertPieceInColumn("R", 7);
+        board.insertPieceInColumn("Y", 7);
+        board.insertPieceInColumn("R", 6);
+        board.insertPieceInColumn("Y", 6);
     }
 
     @Test
     void insertSeveralPiecesTest() {
         System.setOut(new PrintStream(outContent));
         insertPiecesExample();
-        b.printBoard();
+        board.printBoard();
 
         String expectedOutput  = " 1 2 3 4 5 6 7 \n" +
                                  "| | | | | | | |\n" +
@@ -81,14 +81,14 @@ public class BoardTest {
     void getRowTest() {
         insertPiecesExample();
         List<String> row = Arrays.asList("Y", " ", "R", "Y", " ", "R", "R");
-        assertEquals(b.getRow(6), row);
+        assertEquals(board.getRow(6), row);
     }
 
     @Test
     void getRowTest2() {
         insertPiecesExample();
         List<String> row = Arrays.asList(" ", " ", "Y", "R", " ", "Y", "R");
-        assertEquals(b.getRow(5), row);
+        assertEquals(board.getRow(5), row);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class BoardTest {
         insertPiecesExample();
 
         List<String> diagonal = Arrays.asList(" ", " ", "Y", "Y");
-        assertEquals(b.getDiagonal(5, 3, false), diagonal);
+        assertEquals(board.getDiagonal(5, 3, false), diagonal);
     }
 
     @Test
@@ -104,7 +104,7 @@ public class BoardTest {
         insertPiecesExample();
 
         List<String> diagonal = Arrays.asList(" ", " ", " ", " ", "Y", "R");
-        assertEquals(diagonal, b.getDiagonal(6, 7, false));
+        assertEquals(diagonal, board.getDiagonal(6, 7, false));
     }
 
     @Test
@@ -112,12 +112,12 @@ public class BoardTest {
         insertPiecesExample();
 
         List<String> diagonal = Arrays.asList(" ", "Y", "Y", " ", " ", " ");
-        assertEquals(diagonal, b.getDiagonal(5, 3, true));
+        assertEquals(diagonal, board.getDiagonal(5, 3, true));
     }
 
     @Test
     void isFullTest() {
         insertPiecesExample();
-        assertFalse(b.isFull());
+        assertFalse(board.isFull());
     }
 }
