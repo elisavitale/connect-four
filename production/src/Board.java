@@ -15,7 +15,7 @@ public class Board {
         initializeBoard();
     }
 
-    public void initializeBoard() {
+    private void initializeBoard() {
         for (int i = 0; i < numberOfColumns; i++)
             board[i] = new Column(numberOfRows);
     }
@@ -26,7 +26,7 @@ public class Board {
             printRow(i);
     }
 
-    public void printRow(int index) {
+    private void printRow(int index) {
         List<String> row = getRow(index);
         System.out.print("|" + String.join("|", row) + "|\n");
     }
@@ -83,9 +83,9 @@ public class Board {
         board[column].insert(piece);
     }
 
-    public int sizeOfColumn(int index) {
-        index--;
-        return board[index].currentSize();
+    public int currentSizeOfColumn(int column) {
+        column--;
+        return board[column].currentSize();
     }
 
     public boolean isFull() {
