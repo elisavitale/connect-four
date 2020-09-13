@@ -14,8 +14,7 @@ public class Column {
     }
 
     public void insert(String piece) {
-        if (!isFull())
-            column.add(piece);
+        column.add(piece);
     }
 
     public boolean isFull() {
