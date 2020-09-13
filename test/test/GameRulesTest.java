@@ -3,10 +3,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class BoardRulesTest {
+public class GameRulesTest {
 
     Board b = new Board(6, 7);
-    BoardRules rules = new BoardRules(b);
+    GameRules rules = new GameRules(b);
 
     @Test
     void connectFourHorizontalTest() {
