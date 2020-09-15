@@ -17,16 +17,29 @@ public class Player {
     }
 
     public String chooseColor() {
-        String color = "";
-        while (!colorIsAcceptable(color)) {
-            System.out.print("Choose a color (R = red, Y = yellow): ");
-            color = input.nextLine();
-        }
-        return color;
+        String red = "R";
+        String yellow = "Y";
+        System.out.print("Choose a color (R = red, Y = yellow): ");
+        return chooseBetween(red, yellow);
     }
 
-    private boolean colorIsAcceptable(String color) {
-        return color.equals("Y") || color.equals("R");
+    public String chooseGameMode() {
+        String connectFour = "FOUR";
+        String popOut = "POP";
+        System.out.print("Choose a game mode. Type FOUR to play Connect Four or POP to play Pop Out: ");
+        return chooseBetween(connectFour, popOut);
+    }
+
+    private String chooseBetween(String firstChoice, String secondChoice) {
+        String choice = "";
+        while (!acceptableStringChoice(choice, firstChoice, secondChoice)) {
+            choice = input.nextLine();
+        }
+        return choice;
+    }
+
+    private boolean acceptableStringChoice(String choice, String firstChoice, String secondChoice) {
+        return choice.equals(firstChoice) || choice.equals(secondChoice);
     }
 
     public int chooseColumn() {
@@ -54,14 +67,5 @@ public class Player {
             input.nextLine();
         }
         return column;
-    }
-
-    public String chooseGameMode() {
-        String gameMode = "";
-        while (!gameMode.equals("FOUR") && !gameMode.equals("POP")) {
-            System.out.println("Choose a game mode. Type FOUR to play Connect Four or POP to play Pop Out: ");
-            gameMode = input.nextLine();
-        }
-        return gameMode;
     }
 }
