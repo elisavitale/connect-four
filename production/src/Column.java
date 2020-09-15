@@ -38,4 +38,8 @@ public class Column {
         else
             return column.get(maxSize - index);
     }
+
+    public void popOut() {
+        column.remove(0);
+    }
 }
