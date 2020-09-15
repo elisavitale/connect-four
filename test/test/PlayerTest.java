@@ -54,4 +54,14 @@ public class PlayerTest {
 
         assertEquals(6, column);
     }
+
+    @Test
+    public void chooseGameModeTest() {
+        String testInput = "FOUR";
+        setInputStream(testInput);
+        Player player = new Player(board, "R");
+        String gameMode = player.chooseGameMode();
+
+        assertEquals("FOUR", gameMode);
+    }
 }
