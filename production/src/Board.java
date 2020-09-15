@@ -54,13 +54,11 @@ public class Board {
     }
 
     private int[] getStartingPosition(int row, int column, boolean antiDiagonal) {
-        if (antiDiagonal)
-            while (row < numberOfRows && column > 0) {
+        if (antiDiagonal) while (row < numberOfRows && column > 0) {
                 row++;
                 column--;
             }
-        else
-            while (row > 1 && column > 0) {
+        else while (row > 1 && column > 0) {
                 row--;
                 column--;
             }
@@ -91,5 +89,10 @@ public class Board {
     public boolean isFull() {
         return Arrays.stream(board)
                      .allMatch(Column::isFull);
+    }
+
+    public void popOut(int column) {
+        column--;
+        board[column].popOut();
     }
 }
