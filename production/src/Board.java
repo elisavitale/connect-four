@@ -20,15 +20,24 @@ public class Board {
             board[i] = new Column(numberOfRows);
     }
 
-    public void printBoard() {
-        System.out.print(" 1 2 3 4 5 6 7 \n");
-        for (int i = 1; i <= numberOfRows; i++)
-            printRow(i);
+    public void insertPieceInColumn(String piece, int column) {
+        column--;
+        board[column].insert(piece);
     }
 
-    private void printRow(int index) {
-        List<String> row = getRow(index);
-        System.out.print("|" + String.join("|", row) + "|\n");
+    public void popOut(int column) {
+        column--;
+        board[column].popOut();
+    }
+
+    public int currentSizeOfColumn(int column) {
+        column--;
+        return board[column].currentSize();
+    }
+
+    public boolean isFull() {
+        return Arrays.stream(board)
+                     .allMatch(Column::isFull);
     }
 
     public List<String> getRow(int index) {
@@ -74,25 +83,5 @@ public class Board {
             else positions.add(new int[] {column++, row++});
         }
         return positions;
-    }
-
-    public void insertPieceInColumn(String piece, int column) {
-        column--;
-        board[column].insert(piece);
-    }
-
-    public int currentSizeOfColumn(int column) {
-        column--;
-        return board[column].currentSize();
-    }
-
-    public boolean isFull() {
-        return Arrays.stream(board)
-                     .allMatch(Column::isFull);
-    }
-
-    public void popOut(int column) {
-        column--;
-        board[column].popOut();
     }
 }

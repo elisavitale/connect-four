@@ -10,30 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class BoardTest {
 
     Board board = new Board(6, 7);
-
+    BoardVisual boardVisual = new BoardVisual(board);
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-
-    @Test
-    void printBoardTest() {
-        System.setOut(new PrintStream(outContent));
-        board.printBoard();
-
-        String expectedOutput  = " 1 2 3 4 5 6 7 \n"+
-                                 "| | | | | | | |\n" +
-                                 "| | | | | | | |\n" +
-                                 "| | | | | | | |\n" +
-                                 "| | | | | | | |\n" +
-                                 "| | | | | | | |\n" +
-                                 "| | | | | | | |\n";
-
-        assertEquals(expectedOutput, outContent.toString());
-    }
 
     @Test
     void insertOnePieceTest() {
         System.setOut(new PrintStream(outContent));
         board.insertPieceInColumn("Y", 4);
-        board.printBoard();
+        boardVisual.printBoard();
 
         String expectedOutput  = " 1 2 3 4 5 6 7 \n" +
                                  "| | | | | | | |\n" +
@@ -64,7 +48,7 @@ public class BoardTest {
     void insertSeveralPiecesTest() {
         System.setOut(new PrintStream(outContent));
         insertPiecesExample();
-        board.printBoard();
+        boardVisual.printBoard();
 
         String expectedOutput  = " 1 2 3 4 5 6 7 \n" +
                                  "| | | | | | | |\n" +
