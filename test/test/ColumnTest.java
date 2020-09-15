@@ -1,59 +1,69 @@
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ColumnTest {
 
+    Column column = new Column(6);
+
     @Test
     void insertTest() {
-        Column c = new Column(6);
-        c.insert("R");
-        assertEquals("R", c.lastPiece());
+        column.insert("R");
+        assertEquals("R", column.lastPiece());
     }
 
     @Test
     void insertTwiceTest() {
-        Column c = new Column(6);
-        c.insert("R");
-        c.insert("Y");
-        assertEquals("Y", c.lastPiece());
+        column.insert("R");
+        column.insert("Y");
+        assertEquals("Y", column.lastPiece());
     }
 
     @Test
     void isFullTest() {
-        Column c = new Column(6);
-        c.insert("R");
-        c.insert("Y");
-        c.insert("R");
-        c.insert("Y");
-        c.insert("R");
-        c.insert("Y");
-        assertTrue(c.isFull());
+        column.insert("R");
+        column.insert("Y");
+        column.insert("R");
+        column.insert("Y");
+        column.insert("R");
+        column.insert("Y");
+        assertTrue(column.isFull());
     }
 
     @Test
     void isFullTest2() {
-        Column c = new Column(6);
-        c.insert("R");
-        c.insert("Y");
-        c.insert("R");
-        c.insert("Y");
+        column.insert("R");
+        column.insert("Y");
+        column.insert("R");
+        column.insert("Y");
 
-        assertFalse(c.isFull());
+        assertFalse(column.isFull());
     }
 
     @Test
     void getPieceTest() {
-        Column c = new Column(6);
-        c.insert("R");
-        c.insert("Y");
-        assertEquals("R", c.getPieceAtRow(6));
+        column.insert("R");
+        column.insert("Y");
+        assertEquals("R", column.getPieceAtRow(6));
     }
 
     @Test
     void getPieceTest2() {
-        Column c = new Column(6);
-        c.insert("R");
-        c.insert("Y");
-        assertEquals(" ", c.getPieceAtRow(3));
+        column.insert("R");
+        column.insert("Y");
+        assertEquals(" ", column.getPieceAtRow(3));
+    }
+
+    @Test
+    void popOutTest() {
+        column.insert("R");
+        column.insert("Y");
+        column.insert("R");
+        column.insert("R");
+        column.popOut();
+        List<String> expectedColumn = List.of("Y", "R", "R");
+        assertEquals(expectedColumn, column.getColumn());
     }
 }
