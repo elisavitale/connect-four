@@ -33,7 +33,7 @@ public class Player {
         int column = 0;
         while (!columnIsAcceptable(column)) {
             System.out.print("Choose a column (1-" + board.numberOfColumns + "): ");
-            column = handleColumnInput(column);
+            column = handleNumericInput(column);
         }
         return column;
     }
@@ -43,10 +43,10 @@ public class Player {
     }
 
     private boolean columnIsFull(int column) {
-        return board.sizeOfColumn(column) == 6;
+        return board.currentSizeOfColumn(column) == 6;
     }
 
-    private int handleColumnInput(int column) {
+    private int handleNumericInput(int column) {
         try {
             column = input.nextInt();
         } catch (InputMismatchException exception) {
@@ -54,5 +54,14 @@ public class Player {
             input.nextLine();
         }
         return column;
+    }
+
+    public String chooseGameMode() {
+        String gameMode = "";
+        while (!gameMode.equals("FOUR") && !gameMode.equals("POP")) {
+            System.out.println("Choose a game mode. Type FOUR to play Connect Four or POP to play Pop Out: ");
+            gameMode = input.nextLine();
+        }
+        return gameMode;
     }
 }
