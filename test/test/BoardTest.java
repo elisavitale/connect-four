@@ -120,4 +120,12 @@ public class BoardTest {
         insertPiecesExample();
         assertFalse(board.isFull());
     }
+
+    @Test
+    void popOutColumnTest() {
+        insertPiecesExample();
+        board.popOut(3);
+        List<String> row6 = Arrays.asList("Y", " ", "Y", "Y", " ", "R", "R");
+        assertEquals(row6, board.getRow(6));
+    }
 }
