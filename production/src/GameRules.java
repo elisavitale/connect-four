@@ -1,21 +1,20 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class GameRules {
     private Board board;
-    private List<String> fourY = Arrays.asList("Y", "Y", "Y", "Y");
-    private List<String> fourR = Arrays.asList("R", "R", "R", "R");
 
     GameRules(Board board) {
         this.board = board;
     }
 
-    public boolean connectFour(int input) {
-        ArrayList<List<String>> rowColDiag = getCurrentRowColumnDiagonals(input);
+    public boolean connectFour(int lastInput) {
+        ArrayList<List<String>> rowColDiag = getCurrentRowColumnDiagonals(lastInput);
+        List<String> fourR = alignmentOfLength("R", 4);
+        List<String> fourY = alignmentOfLength("Y", 4);
         return rowColDiag.stream()
-                         .anyMatch(x -> containsAlignment(x, fourY) || containsAlignment(x, fourR));
+                         .anyMatch(x -> containsAlignment(x, fourR) || containsAlignment(x, fourY));
     }
 
     private ArrayList<List<String>> getCurrentRowColumnDiagonals(int columnIndex) {
@@ -34,5 +33,11 @@ public class GameRules {
 
     private boolean containsAlignment(List<String> list, List<String> alignment) {
         return Collections.indexOfSubList(list, alignment) != -1;
+    }
+
+    private List<String> alignmentOfLength(String label, int length) {
+        List<String> alignment = new ArrayList<>();
+        for (int i = 0; i < length; i++) alignment.add(label);
+        return alignment;
     }
 }
