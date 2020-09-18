@@ -31,12 +31,19 @@ public class Player {
     }
 
     public String chooseInsertOrPop() {
-        if (!board.getRow(6).contains(color))
+        if (insertIsAvailable() && !popIsAvailable())
             return "INSERT";
-        else if (board.isFull())
+        else if (popIsAvailable() && !insertIsAvailable())
             return "POP";
-        else
-            return chooseBetween("INSERT", "POP");
+        System.out.print("Choose the next move by typing INSERT or POP: ");
+        return chooseBetween("INSERT", "POP");
+    }
+
+    private boolean insertIsAvailable() {
+        return !board.isFull();
+    }
+    private boolean popIsAvailable() {
+        return board.getRow(6).contains(color);
     }
 
     private String chooseBetween(String firstChoice, String secondChoice) {
