@@ -30,6 +30,15 @@ public class Player {
         return chooseBetween(connectFour, popOut);
     }
 
+    public String chooseInsertOrPop() {
+        if (!board.getRow(6).contains(color))
+            return "INSERT";
+        else if (board.isFull())
+            return "POP";
+        else
+            return chooseBetween("INSERT", "POP");
+    }
+
     private String chooseBetween(String firstChoice, String secondChoice) {
         String choice = "";
         while (!acceptableStringChoice(choice, firstChoice, secondChoice)) {
