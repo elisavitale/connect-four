@@ -64,4 +64,12 @@ public class PlayerTest {
 
         assertEquals("FOUR", gameMode);
     }
+
+    @Test
+    public void chooseInsertOrPopTest() {
+        Player player = new Player(board, "R");
+        String expected = "INSERT";
+
+        assertEquals(expected, player.chooseInsertOrPop());
+    }
 }
