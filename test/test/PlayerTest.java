@@ -92,4 +92,23 @@ public class PlayerTest {
         String expectedOutput = "INSERT";
         assertEquals(expectedOutput, output);
     }
+
+    @Test
+    public void chooseInsertOrPopTest3() {
+        Player player = new Player(board, "R");
+
+        board.insertPieceInColumn("Y", 1);
+        board.insertPieceInColumn("R", 2);
+        board.insertPieceInColumn("Y", 3);
+        board.insertPieceInColumn("R", 4);
+        board.insertPieceInColumn("Y", 5);
+        board.insertPieceInColumn("R", 6);
+        board.insertPieceInColumn("Y", 7);
+
+        String testInput = "POP";
+        setInputStream(testInput);
+        String output = player.chooseInsertOrPop();
+        String expectedOutput = "POP";
+        assertEquals(expectedOutput, output);
+    }
 }
