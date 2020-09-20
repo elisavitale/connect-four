@@ -98,4 +98,37 @@ public class GameRulesTest {
 
         assertTrue(rules.connectFour(4));
     }
+
+    @Test
+    void connectFourPopTest() {
+        board.insertPieceInColumn("Y", 1);
+        board.insertPieceInColumn("Y", 2);
+        board.insertPieceInColumn("Y", 4);
+        board.insertPieceInColumn("R", 3);
+        board.insertPieceInColumn("Y", 3);
+        board.insertPieceInColumn("R", 3);
+        board.popOut(3);
+
+        assertTrue(rules.connectFour(3));
+    }
+
+    @Test
+    void connectFourPopTest2() {
+        board.insertPieceInColumn("Y", 1);
+        board.insertPieceInColumn("R", 1);
+        board.insertPieceInColumn("Y", 1);
+        board.insertPieceInColumn("R", 1);
+        board.insertPieceInColumn("Y", 2);
+        board.insertPieceInColumn("R", 3);
+        board.insertPieceInColumn("Y", 2);
+        board.insertPieceInColumn("R", 2);
+        board.insertPieceInColumn("Y", 3);
+        board.insertPieceInColumn("R", 3);
+        board.insertPieceInColumn("Y", 3);
+        board.insertPieceInColumn("R", 4);
+        board.insertPieceInColumn("Y", 4);
+        board.popOut(3);
+
+        assertTrue(rules.connectFour(3));
+    }
 }
