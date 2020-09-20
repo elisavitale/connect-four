@@ -103,12 +103,33 @@ public class PlayerTest {
         board.insertPieceInColumn("R", 4);
         board.insertPieceInColumn("Y", 5);
         board.insertPieceInColumn("R", 6);
-        board.insertPieceInColumn("Y", 7);
 
         String testInput = "POP";
         setInputStream(testInput);
         String output = player.chooseInsertOrPop();
         String expectedOutput = "POP";
         assertEquals(expectedOutput, output);
+    }
+
+    @Test
+    public void chooseColumnToPopTest() {
+        Player player = new Player(board, "R");
+
+        board.insertPieceInColumn("Y", 1);
+        board.insertPieceInColumn("R", 2);
+        board.insertPieceInColumn("Y", 3);
+        board.insertPieceInColumn("R", 4);
+        board.insertPieceInColumn("Y", 5);
+        board.insertPieceInColumn("R", 6);
+
+        boolean pop = true;
+        String testInput = "1"
+                         + "\n3"
+                         + "\n5"
+                         + "\n2";
+        setInputStream(testInput);
+        int column = player.chooseInsPopColumn(pop);
+        assertEquals(2, column);
+
     }
 }
