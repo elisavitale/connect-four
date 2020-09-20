@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Player {
@@ -42,8 +44,10 @@ public class Player {
     private boolean insertIsAvailable() {
         return !board.isFull();
     }
+
     private boolean popIsAvailable() {
-        return board.getRow(6).contains(color);
+        int lastRow = board.numberOfRows;
+        return board.getRow(lastRow).contains(color);
     }
 
     private String chooseBetween(String firstChoice, String secondChoice) {
@@ -60,15 +64,38 @@ public class Player {
 
     public int chooseColumn() {
         int column = 0;
-        while (!columnIsAcceptable(column)) {
+        while (columnIsNotAcceptable(column)) {
             System.out.print("Choose a column (1-" + board.numberOfColumns + "): ");
             column = handleNumericInput(column);
         }
         return column;
     }
 
-    private boolean columnIsAcceptable(int column) {
-        return column >= 1 && column <= board.numberOfColumns && !columnIsFull(column);
+    public int chooseInsPopColumn(boolean pop) {
+        int column = 0;
+        if (pop) while (!availableColumn().contains(column)) {
+            System.out.print("Choose a column (1-" + board.numberOfColumns + "): ");
+            column = handleNumericInput(column);
+        }
+        else while (!columnIsNotAcceptable(column)) {
+            System.out.print("Choose a column (1-" + board.numberOfColumns + "): ");
+            column = handleNumericInput(column);
+        }
+        return column;
+    }
+
+    private List<Integer> availableColumn() {
+        List<String> row = board.getRow(6);
+        List<Integer> columns = new ArrayList<>();
+        for (int i = 0; i < row.size(); i++) {
+            if (row.get(i).equals(color))
+                columns.add(i+1);
+        }
+        return columns;
+    }
+
+    private boolean columnIsNotAcceptable(int column) {
+        return column < 1 || column > board.numberOfColumns || columnIsFull(column);
     }
 
     private boolean columnIsFull(int column) {
