@@ -38,7 +38,7 @@ public class PlayerTest {
         String testInput = "3";
         setInputStream(testInput);
         Player player = new Player(board, "R");
-        int column = player.chooseColumn();
+        int column = player.chooseColumn(false);
 
         assertEquals(3, column);
     }
@@ -50,7 +50,7 @@ public class PlayerTest {
                          + "\n6";
         setInputStream(testInput);
         Player player = new Player(board, "R");
-        int column = player.chooseColumn();
+        int column = player.chooseColumn(false);
 
         assertEquals(6, column);
     }
@@ -120,14 +120,13 @@ public class PlayerTest {
         board.insertPieceInColumn("Y", 5);
         board.insertPieceInColumn("R", 6);
 
-        boolean pop = true;
         String testInput = "1"
                          + "\n3"
                          + "\n5"
                          + "\n2";
         setInputStream(testInput);
         Player player = new Player(board, "R");
-        int column = player.chooseInsPopColumn(pop);
+        int column = player.chooseColumn(true);
 
         assertEquals(2, column);
     }

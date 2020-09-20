@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -33,12 +32,13 @@ public class Player {
     }
 
     public String chooseInsertOrPop() {
-        if (insertIsAvailable() && !popIsAvailable())
+        if (insertIsAvailable() && popIsAvailable()) {
+            System.out.print("Choose the next move by typing INSERT or POP: ");
+            return chooseBetween("INSERT", "POP");
+        }
+        else if (insertIsAvailable())
             return "INSERT";
-        else if (popIsAvailable() && !insertIsAvailable())
-            return "POP";
-        System.out.print("Choose the next move by typing INSERT or POP: ");
-        return chooseBetween("INSERT", "POP");
+        return "POP";
     }
 
     private boolean insertIsAvailable() {
@@ -62,40 +62,24 @@ public class Player {
         return choice.equals(firstChoice) || choice.equals(secondChoice);
     }
 
-    public int chooseColumn() {
+    public int chooseColumn(boolean pop) {
         int column = 0;
-        while (columnIsNotAcceptable(column)) {
+        while (columnIsNotAcceptable(column, pop)) {
             System.out.print("Choose a column (1-" + board.numberOfColumns + "): ");
             column = handleNumericInput(column);
         }
         return column;
     }
 
-    public int chooseInsPopColumn(boolean pop) {
-        int column = 0;
-        if (pop) while (!availableColumn().contains(column)) {
-            System.out.print("Choose a column (1-" + board.numberOfColumns + "): ");
-            column = handleNumericInput(column);
-        }
-        else while (!columnIsNotAcceptable(column)) {
-            System.out.print("Choose a column (1-" + board.numberOfColumns + "): ");
-            column = handleNumericInput(column);
-        }
-        return column;
+    private boolean columnIsNotAcceptable(int column, boolean pop) {
+        if (pop) return column < 1 || column > board.numberOfColumns || !bottomPieceMatchesColor(column);
+        else return column < 1 || column > board.numberOfColumns || columnIsFull(column);
     }
 
-    private List<Integer> availableColumn() {
-        List<String> row = board.getRow(6);
-        List<Integer> columns = new ArrayList<>();
-        for (int i = 0; i < row.size(); i++) {
-            if (row.get(i).equals(color))
-                columns.add(i+1);
-        }
-        return columns;
-    }
-
-    private boolean columnIsNotAcceptable(int column) {
-        return column < 1 || column > board.numberOfColumns || columnIsFull(column);
+    private boolean bottomPieceMatchesColor(int column) {
+        column--;
+        List<String> bottomRow = board.getRow(board.numberOfRows);
+        return bottomRow.get(column).equals(color);
     }
 
     private boolean columnIsFull(int column) {
