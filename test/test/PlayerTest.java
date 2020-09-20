@@ -113,8 +113,6 @@ public class PlayerTest {
 
     @Test
     public void chooseColumnToPopTest() {
-        Player player = new Player(board, "R");
-
         board.insertPieceInColumn("Y", 1);
         board.insertPieceInColumn("R", 2);
         board.insertPieceInColumn("Y", 3);
@@ -128,8 +126,9 @@ public class PlayerTest {
                          + "\n5"
                          + "\n2";
         setInputStream(testInput);
+        Player player = new Player(board, "R");
         int column = player.chooseInsPopColumn(pop);
-        assertEquals(2, column);
 
+        assertEquals(2, column);
     }
 }
