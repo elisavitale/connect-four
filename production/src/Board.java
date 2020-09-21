@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Board {
@@ -53,35 +51,42 @@ public class Board {
         return board[index].getColumn();
     }
 
-    public List<String> getDiagonal(int currentRow, int currentColumn, boolean antiDiagonal) {
-        currentColumn--;
-        int[] startingPosition = getStartingPosition(currentRow, currentColumn, antiDiagonal);
-        ArrayList<int[]> positions = getDiagonalPositions(startingPosition, antiDiagonal);
+    public List<String> getDiagonal(int row, int column, boolean antiDiagonal) {
+        column--;
+        ArrayList<int[]> positions = getDiagonalPositions(row, column, antiDiagonal);
         return positions.stream()
                         .map(x -> board[x[0]].getPieceAtRow(x[1]))
                         .collect(Collectors.toList());
     }
 
-    private int[] getStartingPosition(int row, int column, boolean antiDiagonal) {
+    private ArrayList<int[]> getDiagonalPositions(int row, int column, boolean antiDiagonal) {
+        ArrayList<int[]> positions = new ArrayList<>();
+        int[] step = getFirstStep(row, column, antiDiagonal);
+        while (stepIsInsideBoard(step))
+            positions.add(nextDiagonalStep(step, antiDiagonal));
+        return positions;
+    }
+
+    private int[] getFirstStep(int row, int column, boolean antiDiagonal) {
         if (antiDiagonal) while (row < numberOfRows && column > 0) {
-                row++;
-                column--;
-            }
+            row++;
+            column--;
+        }
         else while (row > 1 && column > 0) {
-                row--;
-                column--;
-            }
+            row--;
+            column--;
+        }
         return new int[] {column, row};
     }
 
-    private ArrayList<int[]> getDiagonalPositions(int[] diagonalStart, boolean antiDiagonal) {
-        int column = diagonalStart[0];
-        int row = diagonalStart[1];
-        ArrayList<int[]> positions = new ArrayList<>();
-        while (row >= 1 && row <= numberOfRows && column < numberOfColumns) {
-            if (antiDiagonal) positions.add(new int[] {column++, row--});
-            else positions.add(new int[] {column++, row++});
-        }
-        return positions;
+    private boolean stepIsInsideBoard(int[] step) {
+        int column = step[0];
+        int row = step[1];
+        return row >= 1 && row <= numberOfRows && column >= 0 && column < numberOfColumns;
+    }
+
+    private int[] nextDiagonalStep(int[] step, boolean antiDiagonal) {
+        if (antiDiagonal) return new int[] {step[0]++, step[1]--};
+        else return new int[] {step[0]++, step[1]++};
     }
 }
