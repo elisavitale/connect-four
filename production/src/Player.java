@@ -82,7 +82,7 @@ public class Player {
     }
 
     private boolean columnIsFull(int column) {
-        return board.currentSizeOfColumn(column) == 6;
+        return board.currentSizeOfColumn(column) == board.numberOfRows;
     }
 
     private int handleNumericInput(int column) {
