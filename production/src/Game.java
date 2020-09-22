@@ -37,7 +37,7 @@ public class Game {
     }
 
     private void setGameMode() {
-        Player player1 = players.get(1);
+        Player player1 = getPlayer(1);
         String gameMode = player1.chooseGameMode();
         popOut = gameMode.equals("POP");
     }
@@ -45,9 +45,7 @@ public class Game {
     public void start() {
         int playerIndex = 1;
         while (!gameOver()) {
-            System.out.print("\nPLAYER " + playerIndex + " >> ");
-            Player player = getPlayer(playerIndex);
-            int column = move(player);
+            int column = move(playerIndex);
             boardVisual.printBoard();
             if (winningMove(column)) {
                 winnerMessage(column);
@@ -63,14 +61,16 @@ public class Game {
         return board.isFull();
     }
 
-    private int move(Player player) {
-        boolean pop = setInsertOrPop(player, popOut);
+    private int move(int playerIndex) {
+        System.out.print("\nPLAYER " + playerIndex + " >> ");
+        Player player = getPlayer(playerIndex);
+        boolean pop = insertOrPop(player, popOut);
         int column = player.chooseColumn(pop);
-        makeMoveOnBoard(player.color, pop, column);
+        fromPlayerChoiceToBoardMove(player.color, pop, column);
         return column;
     }
 
-    private boolean setInsertOrPop(Player player, boolean popOut) {
+    private boolean insertOrPop(Player player, boolean popOut) {
         if (popOut) {
             String insertOrPop = player.chooseInsertOrPop();
             return insertOrPop.equals("P");
@@ -78,12 +78,12 @@ public class Game {
         return false;
     }
 
-    private void makeMoveOnBoard(String piece, boolean pop, int column) {
+    private void fromPlayerChoiceToBoardMove(String piece, boolean pop, int column) {
         if (pop)
             board.popOut(column);
         else
             board.insertPieceInColumn(piece, column);
-}
+    }
 
     private boolean winningMove(int column) {
         return rules.connectFour(column, popOut);
@@ -95,13 +95,7 @@ public class Game {
     }
 
     private int nextPlayer(int current) {
-        if (current == 1)
-            return 2;
+        if (current == 1) return 2;
         return 1;
-    }
-
-    public static void main(String[] args) {
-        Game game = new Game();
-        game.start();
     }
 }
