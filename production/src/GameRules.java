@@ -20,6 +20,18 @@ public class GameRules {
                          .anyMatch(x -> containsAlignment(x, fourR) || containsAlignment(x, fourY));
     }
 
+    public String winner(int lastInput, boolean popOut) {
+        if (connectFour(lastInput, popOut)) {
+            String winner;
+            ArrayList<List<String>> rowColDiag = getColumnRowsDiagonals(lastInput, popOut);
+            if (rowColDiag.stream().anyMatch(x -> containsAlignment(x, fourR)))
+                winner = "R";
+            else winner = "Y";
+            return winner;
+        }
+        return "";
+    }
+
     private ArrayList<List<String>> getColumnRowsDiagonals(int column, boolean popOut) {
         ArrayList<List<String>> rowColDiag = new ArrayList<>();
         rowColDiag.add(board.getColumn(column));
