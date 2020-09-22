@@ -50,7 +50,7 @@ public class Game {
             int column = move(player);
             boardVisual.printBoard();
             if (winningMove(column)) {
-                winnerMessage(playerIndex);
+                winnerMessage(column);
                 break;
             }
             playerIndex = nextPlayer(playerIndex);
@@ -89,8 +89,9 @@ public class Game {
         return rules.connectFour(column, popOut);
     }
 
-    private void winnerMessage(int current) {
-        System.out.println("\nPlayer " + current + " wins the game.");
+    private void winnerMessage(int column) {
+        String winner = rules.winner(column, popOut);
+        System.out.println("\n" + winner + " wins the game.");
     }
 
     private int nextPlayer(int current) {
