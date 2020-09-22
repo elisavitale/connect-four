@@ -2,21 +2,25 @@ import java.util.HashMap;
 
 public class Game {
     private Board board;
+    private BoardVisual boardVisual;
     private GameRules rules;
     private HashMap<Integer, Player> players = new HashMap<>();
+    private boolean popOut;
 
-    Game(Board board) {
-        this.board = board;
-        setPlayers();
+    Game() {
+        board = new Board(6, 7);
+        boardVisual = new BoardVisual(board);
         rules = new GameRules(board);
+        setPlayers();
+        popOut = setGameMode();
     }
 
     private void setPlayers() {
-        System.out.print("PLAYER 1 >> ");
+        System.out.print("\nPLAYER 1 >> ");
         players.put(1, new Player(board));
-        System.out.print("PLAYER 2 >> ");
+        System.out.print("\nPLAYER 2 >> ");
         players.put(2, new Player(board, setPlayerColor()));
-        System.out.println("Has color " + getPlayer(2).color);
+        System.out.println("Has color " + getPlayer(2).color + ".\n");
     }
 
     private String setPlayerColor() {
@@ -30,30 +34,53 @@ public class Game {
         return players.get(index);
     }
 
+    private boolean setGameMode() {
+        Player player1 = players.get(1);
+        String gameMode = player1.chooseGameMode();
+        return gameMode.equals("POP");
+    }
+
     public void start() {
-        int currentPlayerIndex = 1;
-        while (!board.isFull()) {
-            System.out.print("PLAYER " + currentPlayerIndex + " >> ");
-            Player currentPlayer = getPlayer(currentPlayerIndex);
-            int column = move(currentPlayer);
+        int playerIndex = 1;
+        while (gameNotOver()) {
+            System.out.print("\nPLAYER " + playerIndex + " >> ");
+            Player player = getPlayer(playerIndex);
+            int column = move(player);
+            boardVisual.printBoard();
             if (winningMove(column)) {
-                winnerMessage(currentPlayerIndex);
+                winnerMessage(playerIndex);
                 break;
             }
-            currentPlayerIndex = nextPlayer(currentPlayerIndex);
+            playerIndex = nextPlayer(playerIndex);
         }
         System.out.println("Game over!");
     }
 
+    private boolean gameNotOver() {
+        if (popOut) return true;
+        return !board.isFull();
+    }
+
     private int move(Player player) {
-        int column = player.chooseColumn();
-        board.insertPieceInColumn(player.color, column);
-        board.printBoard();
+        int column;
+        if (popOut) {
+            String insertOrPop = player.chooseInsertOrPop();
+            column = player.chooseColumn(insertOrPop.equals("P"));
+            if (insertOrPop.equals("P")) {
+                board.popOut(column);
+            }
+            else
+                board.insertPieceInColumn(player.color, column);
+        }
+        else {
+            column = player.chooseColumn(false);
+            board.insertPieceInColumn(player.color, column);
+        }
         return column;
     }
 
     private boolean winningMove(int column) {
-        return rules.connectFour(column);
+        return rules.connectFour(column, false);
     }
 
     private void winnerMessage(int current) {
@@ -64,5 +91,10 @@ public class Game {
         if (current == 1)
             return 2;
         return 1;
+    }
+
+    public static void main(String[] args) {
+        Game game = new Game();
+        game.start();
     }
 }
