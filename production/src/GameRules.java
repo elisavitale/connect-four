@@ -3,33 +3,14 @@ import java.util.stream.IntStream;
 
 public class GameRules {
     private Board board;
-    private List<String> fourR = alignmentOfLengthFour("R");
-    private List<String> fourY = alignmentOfLengthFour("Y");
 
     GameRules(Board board) {
         this.board = board;
     }
 
-    private List<String> alignmentOfLengthFour(String label) {
-        return Arrays.asList(label, label, label, label);
-    }
-
     public boolean connectFour(int lastInput, boolean popOut) {
-        ArrayList<List<String>> rowColDiag = getColumnRowsDiagonals(lastInput, popOut);
-        return rowColDiag.stream()
-                         .anyMatch(x -> containsAlignment(x, fourR) || containsAlignment(x, fourY));
-    }
-
-    public String winner(int lastInput, boolean popOut) {
-        if (connectFour(lastInput, popOut)) {
-            String winner;
-            ArrayList<List<String>> rowColDiag = getColumnRowsDiagonals(lastInput, popOut);
-            if (rowColDiag.stream().anyMatch(x -> containsAlignment(x, fourR)))
-                winner = "R";
-            else winner = "Y";
-            return winner;
-        }
-        return "";
+        ArrayList<List<String>> linesToCheck = getColumnRowsDiagonals(lastInput, popOut);
+        return checkAlignments(linesToCheck, "R") || checkAlignments(linesToCheck, "Y");
     }
 
     private ArrayList<List<String>> getColumnRowsDiagonals(int column, boolean popOut) {
@@ -56,7 +37,24 @@ public class GameRules {
                              board.getDiagonal(row, column, true));
     }
 
-    private boolean containsAlignment(List<String> list, List<String> alignment) {
-        return Collections.indexOfSubList(list, alignment) != -1;
+    private boolean checkAlignments(ArrayList<List<String>> linesToCheck, String color) {
+        List<String> alignment = alignmentOfLengthFour(color);
+        return linesToCheck.stream()
+                           .anyMatch(line -> contains(line, alignment));
+    }
+
+    private List<String> alignmentOfLengthFour(String label) {
+        return Arrays.asList(label, label, label, label);
+    }
+
+    private boolean contains(List<String> line, List<String> alignment) {
+        return Collections.indexOfSubList(line, alignment) != -1;
+    }
+
+    public String winner(int lastInput, boolean popOut) {
+        ArrayList<List<String>> linesToCheck = getColumnRowsDiagonals(lastInput, popOut);
+        if (checkAlignments(linesToCheck, "R"))
+            return "R";
+        return "Y";
     }
 }
