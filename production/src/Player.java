@@ -18,25 +18,25 @@ public class Player {
     public String chooseColor() {
         String red = "R";
         String yellow = "Y";
-        System.out.print("Choose a color (R = red, Y = yellow): ");
+        System.out.print("Choose a color (R = red, Y = yellow).\n");
         return chooseBetween(red, yellow);
     }
 
     public String chooseGameMode() {
         String connectFour = "FOUR";
         String popOut = "POP";
-        System.out.print("Choose a game mode. Type FOUR to play Connect Four or POP to play Pop Out: ");
+        System.out.print("Choose a game mode (FOUR = Connect Four, POP = Pop Out).\n");
         return chooseBetween(connectFour, popOut);
     }
 
     public String chooseInsertOrPop() {
         if (insertIsAvailable() && popIsAvailable()) {
-            System.out.print("Choose the next move by typing INSERT or POP: ");
-            return chooseBetween("INSERT", "POP");
+            System.out.print("Choose the next move (I = insert, P = pop).\n ");
+            return chooseBetween("I", "P");
         }
         else if (insertIsAvailable())
-            return "INSERT";
-        return "POP";
+            return "I";
+        return "P";
     }
 
     private boolean insertIsAvailable() {
@@ -51,6 +51,7 @@ public class Player {
     private String chooseBetween(String firstChoice, String secondChoice) {
         String choice = "";
         while (!acceptableStringChoice(choice, firstChoice, secondChoice)) {
+            System.out.print("Type " + firstChoice + " or " + secondChoice + ": ");
             choice = input.nextLine();
         }
         return choice;
