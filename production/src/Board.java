@@ -46,11 +46,6 @@ public class Board {
         return row;
     }
 
-    public List<String> getColumn(int index) {
-        index--;
-        return board[index].getColumn();
-    }
-
     public List<String> getDiagonal(int row, int column, boolean antiDiagonal) {
         column--;
         ArrayList<int[]> positions = getDiagonalPositions(row, column, antiDiagonal);
