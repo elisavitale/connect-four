@@ -39,11 +39,9 @@ public class Board {
     }
 
     public List<String> getRow(int index) {
-        ArrayList<String> row = new ArrayList<>();
-        Arrays.stream(board)
-              .map(column -> column.getPieceAtRow(index))
-              .forEach(row::add);
-        return row;
+        return Arrays.stream(board)
+                     .map(column -> column.getPieceAtRow(index))
+                     .collect(Collectors.toList());
     }
 
     public List<String> getDiagonal(int row, int column, boolean antiDiagonal) {
