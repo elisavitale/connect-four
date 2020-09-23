@@ -1,12 +1,11 @@
 import java.util.ArrayList;
 
 public class Column {
-    private ArrayList<String> column;
+    private ArrayList<String> column = new ArrayList<>();
     private int maxSize;
 
     Column(int size) {
         maxSize = size;
-        column = new ArrayList<>();
     }
 
     public ArrayList<String> getColumn() {
