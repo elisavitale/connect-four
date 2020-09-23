@@ -10,7 +10,7 @@ public class GameRules {
 
     public boolean connectFour(int lastInput, boolean popOut) {
         ArrayList<List<String>> diagonals = getDiagonals(lastInput, popOut);
-        return checkAlignments(diagonals, "R") || checkAlignments(diagonals, "Y");
+        return containWinningAlignment(diagonals, "R") || containWinningAlignment(diagonals, "Y");
     }
 
     private ArrayList<List<String>> getDiagonals(int column, boolean popOut) {
@@ -32,14 +32,14 @@ public class GameRules {
         return board.numberOfRows - board.currentSizeOfColumn(column) + 1;
     }
 
-    private boolean checkAlignments(ArrayList<List<String>> linesToCheck, String color) {
+    private boolean containWinningAlignment(ArrayList<List<String>> linesToCheck, String color) {
         List<String> alignment = alignmentOfLengthFour(color);
         return linesToCheck.stream()
                            .anyMatch(line -> contains(line, alignment));
     }
 
-    private List<String> alignmentOfLengthFour(String label) {
-        return Arrays.asList(label, label, label, label);
+    private List<String> alignmentOfLengthFour(String color) {
+        return Arrays.asList(color, color, color, color);
     }
 
     private boolean contains(List<String> line, List<String> alignment) {
@@ -48,7 +48,7 @@ public class GameRules {
 
     public String winner(int lastInput, boolean popOut) {
         ArrayList<List<String>> diagonals = getDiagonals(lastInput, popOut);
-        if (checkAlignments(diagonals, "R"))
+        if (containWinningAlignment(diagonals, "R"))
             return "R";
         return "Y";
     }
