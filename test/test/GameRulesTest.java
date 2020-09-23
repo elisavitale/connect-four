@@ -14,7 +14,7 @@ public class GameRulesTest {
         board.insertPieceInColumn("Y", 3);
         board.insertPieceInColumn("Y", 4);
 
-        assertTrue(rules.connectFour(4, false));
+        assertFalse(rules.connectFour(4, false));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class GameRulesTest {
         board.insertPieceInColumn("Y", 6);
         board.insertPieceInColumn("Y", 7);
 
-        assertTrue(rules.connectFour(5, false));
+        assertFalse(rules.connectFour(5, false));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class GameRulesTest {
         board.insertPieceInColumn("Y", 2);
         board.insertPieceInColumn("Y", 2);
 
-        assertTrue(rules.connectFour(2, false));
+        assertFalse(rules.connectFour(2, false));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class GameRulesTest {
         board.insertPieceInColumn("R", 3);
         board.popOut(3);
 
-        assertTrue(rules.connectFour(3, true));
+        assertFalse(rules.connectFour(3, true));
     }
 
     @Test
