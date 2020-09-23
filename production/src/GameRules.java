@@ -9,15 +9,17 @@ public class GameRules {
     }
 
     public boolean connectFour(int lastInput, boolean popOut) {
-        ArrayList<List<String>> linesToCheck = getColumnRowsDiagonals(lastInput, popOut);
-        return checkAlignments(linesToCheck, "R") || checkAlignments(linesToCheck, "Y");
+        ArrayList<List<String>> diagonals = getDiagonals(lastInput, popOut);
+        return checkAlignments(diagonals, "R") || checkAlignments(diagonals, "Y");
     }
 
-    private ArrayList<List<String>> getColumnRowsDiagonals(int column, boolean popOut) {
-        ArrayList<List<String>> rowColDiag = new ArrayList<>();
-        for (int row : getRowIndexes(column, popOut))
-            rowColDiag.addAll(currentRowAndDiagonals(row, column));
-        return rowColDiag;
+    private ArrayList<List<String>> getDiagonals(int column, boolean popOut) {
+        ArrayList<List<String>> diagonals = new ArrayList<>();
+        for (int row : getRowIndexes(column, popOut)) {
+            diagonals.add(board.getDiagonal(row, column, false));
+            diagonals.add(board.getDiagonal(row, column, true));
+        }
+        return diagonals;
     }
 
     private int[] getRowIndexes(int column, boolean popOut) {
@@ -28,11 +30,6 @@ public class GameRules {
 
     private int firstNonemptyRow(int column) {
         return board.numberOfRows - board.currentSizeOfColumn(column) + 1;
-    }
-
-    private List<List<String>> currentRowAndDiagonals(int row, int column) {
-        return Arrays.asList(board.getDiagonal(row, column, false),
-                             board.getDiagonal(row, column, true));
     }
 
     private boolean checkAlignments(ArrayList<List<String>> linesToCheck, String color) {
@@ -50,8 +47,8 @@ public class GameRules {
     }
 
     public String winner(int lastInput, boolean popOut) {
-        ArrayList<List<String>> linesToCheck = getColumnRowsDiagonals(lastInput, popOut);
-        if (checkAlignments(linesToCheck, "R"))
+        ArrayList<List<String>> diagonals = getDiagonals(lastInput, popOut);
+        if (checkAlignments(diagonals, "R"))
             return "R";
         return "Y";
     }
