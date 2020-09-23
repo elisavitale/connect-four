@@ -15,18 +15,27 @@ public class Player {
         this.color = color;
     }
 
+    private String chooseBetween(String firstChoice, String secondChoice) {
+        String choice = "";
+        while (!acceptableStringChoice(choice, firstChoice, secondChoice)) {
+            System.out.print("Type " + firstChoice + " or " + secondChoice + ": ");
+            choice = input.nextLine();
+        }
+        return choice;
+    }
+
+    private boolean acceptableStringChoice(String choice, String firstChoice, String secondChoice) {
+        return choice.equals(firstChoice) || choice.equals(secondChoice);
+    }
+
     public String chooseColor() {
-        String red = "R";
-        String yellow = "Y";
         System.out.print("Choose a color (R = red, Y = yellow).\n");
-        return chooseBetween(red, yellow);
+        return chooseBetween("R", "Y");
     }
 
     public String chooseGameMode() {
-        String connectFour = "FOUR";
-        String popOut = "POP";
         System.out.print("Choose a game mode (FOUR = Connect Four, POP = Pop Out).\n");
-        return chooseBetween(connectFour, popOut);
+        return chooseBetween("FOUR", "POP");
     }
 
     public String chooseInsertOrPop() {
@@ -44,21 +53,13 @@ public class Player {
     }
 
     private boolean popIsAvailable() {
-        int lastRow = board.numberOfRows;
-        return board.getRow(lastRow).contains(color);
+        int bottomRow = board.numberOfRows;
+        return board.getRow(bottomRow)
+                    .contains(color);
     }
 
-    private String chooseBetween(String firstChoice, String secondChoice) {
-        String choice = "";
-        while (!acceptableStringChoice(choice, firstChoice, secondChoice)) {
-            System.out.print("Type " + firstChoice + " or " + secondChoice + ": ");
-            choice = input.nextLine();
-        }
-        return choice;
-    }
-
-    private boolean acceptableStringChoice(String choice, String firstChoice, String secondChoice) {
-        return choice.equals(firstChoice) || choice.equals(secondChoice);
+    public boolean playerCanMove() {
+        return popIsAvailable() || insertIsAvailable();
     }
 
     public int chooseColumn(boolean pop) {
@@ -78,7 +79,8 @@ public class Player {
     private boolean bottomPieceMatchesColor(int column) {
         column--;
         List<String> bottomRow = board.getRow(board.numberOfRows);
-        return bottomRow.get(column).equals(color);
+        return bottomRow.get(column)
+                        .equals(color);
     }
 
     private boolean columnIsFull(int column) {
@@ -93,9 +95,5 @@ public class Player {
             input.nextLine();
         }
         return column;
-    }
-
-    public boolean playerCanMove() {
-        return popIsAvailable() || insertIsAvailable();
     }
 }
