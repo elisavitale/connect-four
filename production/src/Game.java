@@ -18,10 +18,9 @@ public class Game {
     private void setPlayers() {
         System.out.print("\nPLAYER 1 >> ");
         Player player1 = new Player(board);
-        System.out.print("\nPLAYER 2 >> ");
-        Player player2 = new Player(board, setPlayerColor());
-        System.out.println("Has color " + player2.color + ".\n");
         players.put(1, player1);
+        Player player2 = new Player(board, setPlayerColor());
+        System.out.println("\nPLAYER 2 >> Has color " + player2.color + ".\n");
         players.put(2, player2);
     }
 
@@ -44,7 +43,7 @@ public class Game {
 
     public void start() {
         int playerIndex = 1;
-        while (!gameOver()) {
+        while (!gameOver(playerIndex)) {
             int column = move(playerIndex);
             boardVisual.printBoard();
             if (winningMove(column)) {
@@ -53,17 +52,21 @@ public class Game {
             }
             playerIndex = nextPlayer(playerIndex);
         }
-        System.out.println("Game over!");
+        System.out.println("\nGame over!");
     }
 
-    private boolean gameOver() {
-        if (popOut) return false;
-        return board.isFull();
+    private boolean gameOver(int currentPlayer) {
+        if (popOut) return !playerCanMove(currentPlayer);
+        else return board.isFull();
     }
 
-    private int move(int playerIndex) {
-        System.out.print("\nPLAYER " + playerIndex + " >> ");
-        Player player = getPlayer(playerIndex);
+    private boolean playerCanMove(int currentPlayer) {
+        return getPlayer(currentPlayer).playerCanMove();
+    }
+
+    private int move(int currentPlayer) {
+        System.out.print("\nPLAYER " + currentPlayer + " >> ");
+        Player player = getPlayer(currentPlayer);
         boolean pop = insertOrPop(player, popOut);
         int column = player.chooseColumn(pop);
         fromPlayerChoiceToBoardMove(player.color, pop, column);
@@ -79,10 +82,8 @@ public class Game {
     }
 
     private void fromPlayerChoiceToBoardMove(String piece, boolean pop, int column) {
-        if (pop)
-            board.popOut(column);
-        else
-            board.insertPieceInColumn(piece, column);
+        if (pop) board.popOut(column);
+        else board.insertPieceInColumn(piece, column);
     }
 
     private boolean winningMove(int column) {
