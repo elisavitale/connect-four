@@ -94,4 +94,8 @@ public class Player {
         }
         return column;
     }
+
+    public boolean playerCanMove() {
+        return popIsAvailable() || insertIsAvailable();
+    }
 }
