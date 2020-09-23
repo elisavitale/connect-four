@@ -17,5 +17,4 @@ public class BoardVisual {
         List<String> row = board.getRow(index);
         System.out.print("|" + String.join("|", row) + "|\n");
     }
-
 }
