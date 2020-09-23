@@ -15,7 +15,6 @@ public class GameRules {
 
     private ArrayList<List<String>> getColumnRowsDiagonals(int column, boolean popOut) {
         ArrayList<List<String>> rowColDiag = new ArrayList<>();
-        rowColDiag.add(board.getColumn(column));
         for (int row : getRowIndexes(column, popOut))
             rowColDiag.addAll(currentRowAndDiagonals(row, column));
         return rowColDiag;
@@ -32,8 +31,7 @@ public class GameRules {
     }
 
     private List<List<String>> currentRowAndDiagonals(int row, int column) {
-        return Arrays.asList(board.getRow(row),
-                             board.getDiagonal(row, column, false),
+        return Arrays.asList(board.getDiagonal(row, column, false),
                              board.getDiagonal(row, column, true));
     }
 
