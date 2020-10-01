@@ -6,6 +6,7 @@ This project implements a command line version of the Connect Four game. There a
 Source: [Wikipedia](https://en.wikipedia.org/wiki/Connect_Four)
 
 ## **About the code**
+During gameplay, the red and yellow discs are replaced by letters: R for red, Y for yellow. \
 The board, whose size is 6 rows by 7 columns, has rows and columns numbered as follows:
 -	Rows from 1 to 6, going from top to bottom. 
 -	Columns from 1 to 7, going from left to right.
@@ -21,4 +22,4 @@ At the beginning of the game, the layout of the (empty) board is the following:
 `| | | | | | | |` 
 
 *Diagonals* go from top left to bottom right (&#8600;), whereas *antidiagonals* go from bottom left to top right (&#8599;).\
-During gameplay, the red and yellow discs are replaced by letters: R for red, Y for yellow. 
+
