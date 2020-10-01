@@ -21,5 +21,5 @@ At the beginning of the game, the layout of the (empty) board is the following:
 `| | | | | | | |` \
 `| | | | | | | |` 
 
-*Diagonals* go from top left to bottom right (&#8600;), whereas *antidiagonals* go from bottom left to top right (&#8599;).\
+*Diagonals* go from top left to bottom right (&#8600;), whereas *antidiagonals* go from bottom left to top right (&#8599;).
 
