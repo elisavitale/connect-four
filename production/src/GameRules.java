@@ -52,4 +52,18 @@ public class GameRules {
             return "R";
         return "Y";
     }
+
+    public boolean playerCanMove(Player player) {
+        return popIsAvailable(player) || insertIsAvailable();
+    }
+
+    public boolean insertIsAvailable() {
+        return !board.isFull();
+    }
+
+    public boolean popIsAvailable(Player player) {
+        int bottomRow = board.numberOfRows;
+        return board.getRow(bottomRow)
+                    .contains(player.color);
+    }
 }

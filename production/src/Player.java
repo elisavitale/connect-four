@@ -4,15 +4,18 @@ public class Player {
     String color;
     private Board board;
     private Scanner input = new Scanner(System.in);
+    private GameRules rules;
 
     Player(Board board) {
         this.board = board;
         this.color = chooseColor();
+        this.rules = new GameRules(board);
     }
 
     Player(Board board, String color) {
         this.board = board;
         this.color = color;
+        this.rules = new GameRules(board);
     }
 
     private String chooseBetween(String firstChoice, String secondChoice) {
@@ -39,27 +42,13 @@ public class Player {
     }
 
     public String chooseInsertOrPop() {
-        if (insertIsAvailable() && popIsAvailable()) {
+        if (rules.insertIsAvailable() && rules.popIsAvailable(this)) {
             System.out.print("Choose the next move (I = insert, P = pop).\n ");
             return chooseBetween("I", "P");
         }
-        else if (insertIsAvailable())
+        else if (rules.insertIsAvailable())
             return "I";
         return "P";
-    }
-
-    private boolean insertIsAvailable() {
-        return !board.isFull();
-    }
-
-    private boolean popIsAvailable() {
-        int bottomRow = board.numberOfRows;
-        return board.getRow(bottomRow)
-                    .contains(color);
-    }
-
-    public boolean playerCanMove() {
-        return popIsAvailable() || insertIsAvailable();
     }
 
     public int chooseColumn(boolean pop) {
