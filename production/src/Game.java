@@ -63,7 +63,8 @@ public class Game {
     }
 
     private boolean playerCanMove(int currentPlayer) {
-        return getPlayer(currentPlayer).playerCanMove();
+        Player player = getPlayer(currentPlayer);
+        return rules.playerCanMove(player);
     }
 
     private boolean chooseMoveType(int currentPlayer) {
