@@ -8,23 +8,23 @@ public class GameRules {
         this.board = board;
     }
 
-    public boolean connectFour(int lastInput, boolean popOut) {
-        ArrayList<List<String>> diagonals = getDiagonals(lastInput, popOut);
+    public boolean connectFour(int lastInput, boolean pop) {
+        ArrayList<List<String>> diagonals = getDiagonals(lastInput, pop);
         return containWinningAlignment(diagonals, "R") || containWinningAlignment(diagonals, "Y");
     }
 
-    private ArrayList<List<String>> getDiagonals(int column, boolean popOut) {
+    private ArrayList<List<String>> getDiagonals(int column, boolean pop) {
         ArrayList<List<String>> diagonals = new ArrayList<>();
-        for (int row : getRowIndexes(column, popOut)) {
+        for (int row : getRowIndexes(column, pop)) {
             diagonals.add(board.getDiagonal(row, column, false));
             diagonals.add(board.getDiagonal(row, column, true));
         }
         return diagonals;
     }
 
-    private int[] getRowIndexes(int column, boolean popOut) {
-        if (popOut) return IntStream.range(firstNonemptyRow(column), board.numberOfRows + 1)
-                                    .toArray();
+    private int[] getRowIndexes(int column, boolean pop) {
+        if (pop) return IntStream.range(firstNonemptyRow(column), board.numberOfRows + 1)
+                                 .toArray();
         else return new int[] {firstNonemptyRow(column)};
     }
 
@@ -46,8 +46,8 @@ public class GameRules {
         return Collections.indexOfSubList(line, alignment) != -1;
     }
 
-    public String winner(int lastInput, boolean popOut) {
-        ArrayList<List<String>> diagonals = getDiagonals(lastInput, popOut);
+    public String winner(int lastInput, boolean pop) {
+        ArrayList<List<String>> diagonals = getDiagonals(lastInput, pop);
         if (containWinningAlignment(diagonals, "R"))
             return "R";
         return "Y";
