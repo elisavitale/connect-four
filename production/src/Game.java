@@ -58,13 +58,8 @@ public class Game {
     }
 
     private boolean gameOver(int currentPlayer) {
-        if (popOut) return !playerCanMove(currentPlayer);
-        else return board.isFull();
-    }
-
-    private boolean playerCanMove(int currentPlayer) {
-        Player player = getPlayer(currentPlayer);
-        return rules.playerCanMove(player);
+        Player player = players.get(currentPlayer);
+        return rules.gameOver(player, popOut);
     }
 
     private boolean chooseMoveType(int currentPlayer) {
