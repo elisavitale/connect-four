@@ -43,36 +43,26 @@ public class Game {
 
     public void start() {
         int playerIndex = 1;
+        Player player = getPlayer(playerIndex);
         boardVisual.printBoard();
-        while (!gameOver(playerIndex)) {
-            boolean pop = chooseMoveType(playerIndex);
-            int column = move(playerIndex, pop);
+        while (!gameOver(player)) {
+            System.out.print("\nPLAYER " + playerIndex + " >> ");
+            boolean pop = insertOrPop(player, popOut);
+            int column = player.chooseColumn(pop);
+            move(player.color, pop, column);
             boardVisual.printBoard();
             if (winningMove(column, pop)) {
                 winnerMessage(column, pop);
                 break;
             }
             playerIndex = nextPlayer(playerIndex);
+            player = getPlayer(playerIndex);
         }
         System.out.println("\nGame over!");
     }
 
-    private boolean gameOver(int currentPlayer) {
-        Player player = players.get(currentPlayer);
+    private boolean gameOver(Player player) {
         return rules.gameOver(player, popOut);
-    }
-
-    private boolean chooseMoveType(int currentPlayer) {
-        System.out.print("\nPLAYER " + currentPlayer + " >> ");
-        Player player = getPlayer(currentPlayer);
-        return insertOrPop(player, popOut);
-    }
-
-    private int move(int currentPlayer, boolean pop) {
-        Player player = getPlayer(currentPlayer);
-        int column = player.chooseColumn(pop);
-        fromPlayerChoiceToBoardMove(player.color, pop, column);
-        return column;
     }
 
     private boolean insertOrPop(Player player, boolean popOut) {
@@ -83,7 +73,7 @@ public class Game {
         return false;
     }
 
-    private void fromPlayerChoiceToBoardMove(String piece, boolean pop, int column) {
+    private void move(String piece, boolean pop, int column) {
         if (pop) board.popOut(column);
         else board.insertPieceInColumn(piece, column);
     }
