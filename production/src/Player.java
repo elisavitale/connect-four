@@ -61,19 +61,8 @@ public class Player {
     }
 
     private boolean columnIsNotAcceptable(int column, boolean pop) {
-        if (pop) return column < 1 || column > board.numberOfColumns || !bottomPieceMatchesColor(column);
-        else return column < 1 || column > board.numberOfColumns || columnIsFull(column);
-    }
-
-    private boolean bottomPieceMatchesColor(int column) {
-        column--;
-        List<String> bottomRow = board.getRow(board.numberOfRows);
-        return bottomRow.get(column)
-                        .equals(color);
-    }
-
-    private boolean columnIsFull(int column) {
-        return board.currentSizeOfColumn(column) == board.numberOfRows;
+        if (pop) return column < 1 || column > board.numberOfColumns || !board.bottomPieceMatchesColor(column, color);
+        else return column < 1 || column > board.numberOfColumns || board.columnIsFull(column);
     }
 
     private int handleNumericInput(int column) {

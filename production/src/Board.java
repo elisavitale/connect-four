@@ -33,6 +33,11 @@ public class Board {
         return board[column].currentSize();
     }
 
+    public boolean columnIsFull(int column) {
+        column--;
+        return board[column].currentSize() == numberOfRows;
+    }
+
     public boolean isFull() {
         return Arrays.stream(board)
                      .allMatch(Column::isFull);
@@ -81,5 +86,11 @@ public class Board {
     private int[] nextDiagonalStep(int[] step, boolean antiDiagonal) {
         if (antiDiagonal) return new int[] {step[0]++, step[1]--};
         else return new int[] {step[0]++, step[1]++};
+    }
+
+    public boolean bottomPieceMatchesColor(int column, String color) {
+        column--;
+        return board[column].getPieceAtRow(numberOfRows)
+                            .equals(color);
     }
 }
