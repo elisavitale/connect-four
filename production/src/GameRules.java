@@ -8,6 +8,11 @@ public class GameRules {
         this.board = board;
     }
 
+    public boolean gameOver(Player currentPlayer, boolean popOut) {
+        if (popOut) return !playerCanMove(currentPlayer);
+        else return board.isFull();
+    }
+
     public boolean connectFour(int lastInput, boolean pop) {
         ArrayList<List<String>> diagonals = getDiagonals(lastInput, pop);
         return containWinningAlignment(diagonals, "R") || containWinningAlignment(diagonals, "Y");
