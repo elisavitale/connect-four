@@ -45,10 +45,11 @@ public class Game {
         int playerIndex = 1;
         boardVisual.printBoard();
         while (!gameOver(playerIndex)) {
-            int column = move(playerIndex);
+            boolean pop = chooseMoveType(playerIndex);
+            int column = move(playerIndex, pop);
             boardVisual.printBoard();
-            if (winningMove(column)) {
-                winnerMessage(column);
+            if (winningMove(column, pop)) {
+                winnerMessage(column, pop);
                 break;
             }
             playerIndex = nextPlayer(playerIndex);
@@ -65,10 +66,15 @@ public class Game {
         return getPlayer(currentPlayer).playerCanMove();
     }
 
-    private int move(int currentPlayer) {
+    private boolean chooseMoveType(int currentPlayer) {
         System.out.print("\nPLAYER " + currentPlayer + " >> ");
         Player player = getPlayer(currentPlayer);
-        boolean pop = insertOrPop(player, popOut);
+        return insertOrPop(player, popOut);
+    }
+
+    private int move(int currentPlayer, boolean pop) {
+        System.out.print("\nPLAYER " + currentPlayer + " >> ");
+        Player player = getPlayer(currentPlayer);
         int column = player.chooseColumn(pop);
         fromPlayerChoiceToBoardMove(player.color, pop, column);
         return column;
@@ -87,12 +93,12 @@ public class Game {
         else board.insertPieceInColumn(piece, column);
     }
 
-    private boolean winningMove(int column) {
-        return rules.connectFour(column, popOut);
+    private boolean winningMove(int column, boolean pop) {
+        return rules.connectFour(column, pop);
     }
 
-    private void winnerMessage(int column) {
-        String winner = rules.winner(column, popOut);
+    private void winnerMessage(int column, boolean pop) {
+        String winner = rules.winner(column, pop);
         System.out.println("\n" + winner + " wins the game.");
     }
 
