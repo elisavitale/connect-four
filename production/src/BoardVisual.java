@@ -8,7 +8,7 @@ public class BoardVisual {
     }
 
     public void printBoard() {
-        System.out.print(" 1 2 3 4 5 6 7 \n");
+        System.out.print("\n 1 2 3 4 5 6 7 \n");
         for (int i = 1; i <= board.numberOfRows; i++)
             printRow(i);
     }

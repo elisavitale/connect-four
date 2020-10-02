@@ -16,7 +16,7 @@ public class BoardTest {
         board.insertPieceInColumn("Y", 4);
         boardVisual.printBoard();
 
-        String expectedOutput  = " 1 2 3 4 5 6 7 \n" +
+        String expectedOutput  = "\n 1 2 3 4 5 6 7 \n" +
                                  "| | | | | | | |\n" +
                                  "| | | | | | | |\n" +
                                  "| | | | | | | |\n" +
@@ -47,7 +47,7 @@ public class BoardTest {
         insertPiecesExample();
         boardVisual.printBoard();
 
-        String expectedOutput  = " 1 2 3 4 5 6 7 \n" +
+        String expectedOutput  = "\n 1 2 3 4 5 6 7 \n" +
                                  "| | | | | | | |\n" +
                                  "| | | | | | | |\n" +
                                  "| | | | | | | |\n" +

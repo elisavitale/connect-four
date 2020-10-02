@@ -73,7 +73,6 @@ public class Game {
     }
 
     private int move(int currentPlayer, boolean pop) {
-        System.out.print("\nPLAYER " + currentPlayer + " >> ");
         Player player = getPlayer(currentPlayer);
         int column = player.chooseColumn(pop);
         fromPlayerChoiceToBoardMove(player.color, pop, column);
