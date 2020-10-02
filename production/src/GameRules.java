@@ -13,6 +13,20 @@ public class GameRules {
         else return board.isFull();
     }
 
+    public boolean playerCanMove(Player player) {
+        return popIsAvailable(player) || insertIsAvailable();
+    }
+
+    public boolean insertIsAvailable() {
+        return !board.isFull();
+    }
+
+    public boolean popIsAvailable(Player player) {
+        int bottomRow = board.numberOfRows;
+        return board.getRow(bottomRow)
+                .contains(player.color);
+    }
+
     public boolean connectFour(int lastInput, boolean pop) {
         ArrayList<List<String>> diagonals = getDiagonals(lastInput, pop);
         return containWinningAlignment(diagonals, "R") || containWinningAlignment(diagonals, "Y");
@@ -56,19 +70,5 @@ public class GameRules {
         if (containWinningAlignment(diagonals, "R"))
             return "R";
         return "Y";
-    }
-
-    public boolean playerCanMove(Player player) {
-        return popIsAvailable(player) || insertIsAvailable();
-    }
-
-    public boolean insertIsAvailable() {
-        return !board.isFull();
-    }
-
-    public boolean popIsAvailable(Player player) {
-        int bottomRow = board.numberOfRows;
-        return board.getRow(bottomRow)
-                    .contains(player.color);
     }
 }
