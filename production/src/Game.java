@@ -43,6 +43,7 @@ public class Game {
 
     public void start() {
         int playerIndex = 1;
+        boardVisual.printBoard();
         while (!gameOver(playerIndex)) {
             int column = move(playerIndex);
             boardVisual.printBoard();
