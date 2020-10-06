@@ -8,8 +8,8 @@ public class GameRules {
         this.board = board;
     }
 
-    public boolean gameOver(Player currentPlayer, boolean popOut) {
-        if (popOut) return !playerCanMove(currentPlayer);
+    public boolean gameOver(Player currentPlayer, boolean popOutMode) {
+        if (popOutMode) return !playerCanMove(currentPlayer);
         else return board.isFull();
     }
 
@@ -68,8 +68,8 @@ public class GameRules {
     }
 
     public String winner(int lastInput, boolean pop) {
-        ArrayList<List<String>> diagonals = getLinesToCheck(lastInput, pop);
-        if (containWinningAlignment(diagonals, "R"))
+        ArrayList<List<String>> lines = getLinesToCheck(lastInput, pop);
+        if (containWinningAlignment(lines, "R"))
             return "R";
         return "Y";
     }
