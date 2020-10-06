@@ -43,6 +43,11 @@ public class Board {
                      .allMatch(Column::isFull);
     }
 
+    public List<String> getColumn(int index) {
+        index--;
+        return board[index].getColumn();
+    }
+
     public List<String> getRow(int index) {
         return Arrays.stream(board)
                      .map(column -> column.getPieceAtRow(index))
