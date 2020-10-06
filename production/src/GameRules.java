@@ -24,21 +24,23 @@ public class GameRules {
     public boolean popIsAvailable(Player player) {
         int bottomRow = board.numberOfRows;
         return board.getRow(bottomRow)
-                .contains(player.color);
+                    .contains(player.color);
     }
 
     public boolean connectFour(int lastInput, boolean pop) {
-        ArrayList<List<String>> diagonals = getDiagonals(lastInput, pop);
-        return containWinningAlignment(diagonals, "R") || containWinningAlignment(diagonals, "Y");
+        ArrayList<List<String>> lines = getLinesToCheck(lastInput, pop);
+        return containWinningAlignment(lines, "R") || containWinningAlignment(lines, "Y");
     }
 
-    private ArrayList<List<String>> getDiagonals(int column, boolean pop) {
-        ArrayList<List<String>> diagonals = new ArrayList<>();
+    private ArrayList<List<String>> getLinesToCheck(int column, boolean pop) {
+        ArrayList<List<String>> lines = new ArrayList<>();
+        lines.add(board.getColumn(column));
         for (int row : getRowIndexes(column, pop)) {
-            diagonals.add(board.getDiagonal(row, column, false));
-            diagonals.add(board.getDiagonal(row, column, true));
+            lines.add(board.getRow(row));
+            lines.add(board.getDiagonal(row, column, false));
+            lines.add(board.getDiagonal(row, column, true));
         }
-        return diagonals;
+        return lines;
     }
 
     private int[] getRowIndexes(int column, boolean pop) {
@@ -66,7 +68,7 @@ public class GameRules {
     }
 
     public String winner(int lastInput, boolean pop) {
-        ArrayList<List<String>> diagonals = getDiagonals(lastInput, pop);
+        ArrayList<List<String>> diagonals = getLinesToCheck(lastInput, pop);
         if (containWinningAlignment(diagonals, "R"))
             return "R";
         return "Y";
